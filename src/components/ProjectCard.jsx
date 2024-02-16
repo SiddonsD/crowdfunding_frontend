@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
+import "./ProjectCard.css";
 
 function ProjectCard(props) {
-    const { project } = props;
+    const { projectData } = props;
 
     return (
-        <div>
+        <div className="project card">
             <Link to="/project">
-                <img scr={project.image} alt={`${project.title}image`}} />
+                <img src={projectData.image} alt={`${projectData.title} image`} />
+                <h3>{projectData.title}</h3>
             </Link>
         </div>
-    )
+    );
 }
+
+export default ProjectCard;
