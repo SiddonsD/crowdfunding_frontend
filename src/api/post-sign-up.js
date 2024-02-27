@@ -1,5 +1,5 @@
-async function postLogin(username, password) {
-    const url = `${import.meta.env.VITE_API_URL}/api-token-auth/`;
+async function post(username, email, password) {
+    const url = `${import.meta.env.VITE_API_URL}/users/register/`;
     const response = await fetch(url, {
         method: "POST",
         // need to tell server we are sending JSON data so we set the Content-Type header to application/json
@@ -8,12 +8,13 @@ async function postLogin(username, password) {
         },
         body: JSON.stringify({
             "username": username,
+            "email": email,
             "password": password,
         }),
     });
 
     if (!response.ok){
-        const fallbackError = `Error trying to login`;
+        const fallbackError = `Username or email already exists`;
 
         const data = await response.json().catch(() => {
             throw new Error(fallbackError);
@@ -24,4 +25,4 @@ async function postLogin(username, password) {
     return await response.json();
 }
 
-export default postLogin;
+export default postSignUp;

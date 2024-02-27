@@ -26,11 +26,10 @@ function LoginForm() {
         event.preventDefault();
         if (credentials.username && credentials.password) {
             try {
-                await
-                postLogin(
+                const response = await postLogin(
                 credentials.username,
-                credentials.password;
-
+                credentials.password
+                );
                 window.localStorage.setItem("token", response.token);
                 navigate("/");
             } catch (err) {
