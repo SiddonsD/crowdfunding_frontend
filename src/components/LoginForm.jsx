@@ -22,20 +22,29 @@ function LoginForm() {
         }));
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (credentials.username && credentials.password) {
-            postLogin(
+            try {
+                await
+                postLogin(
                 credentials.username,
-                credentials.password
-            ).then((response) => {
-                console.log(response);
+                credentials.password;
+
                 window.localStorage.setItem("token", response.token);
-                setAuth({
-                    token: response.token,
-                });
                 navigate("/");
-            });
+            } catch (err) {
+                window.alert(err.message);
+            }
+            
+            // ).then((response) => {
+            //     console.log(response);
+            //     window.localStorage.setItem("token", response.token);
+            //     setAuth({
+            //         token: response.token,
+            //     });
+            //     navigate("/");
+            // });
         }
     };
 
