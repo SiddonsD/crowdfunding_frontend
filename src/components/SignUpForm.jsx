@@ -7,6 +7,8 @@ function SignUpForm() {
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({
         username: "",
+        first_name: "",
+        last_name: "",
         email: "",
         password: "",
     });
