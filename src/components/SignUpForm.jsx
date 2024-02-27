@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import postSignUp from '../api-post-sign-up';
+import postSignUp from '../api/post-sign-up';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
