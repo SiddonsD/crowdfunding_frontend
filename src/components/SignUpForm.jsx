@@ -24,7 +24,7 @@ function SignUpForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await post(credentials.username, credentials.email, credentials.password);
+            const response = await post(credentials.username, credentials.first_name, credentials.last_name, credentials.email, credentials.password);
             // auth token stored on local if registration successful
             window.localStorage.setItem('token', response.token);
             // redirect to homepage after registration or account/profile page (once created)
@@ -58,6 +58,24 @@ function SignUpForm() {
                 type="text" 
                 id="username" 
                 placeholder="Username"
+                onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label htmlFor="first_name">First Name:</label>
+                <input 
+                type="text" 
+                id="first_name" 
+                placeholder="First Name"
+                onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label htmlFor="last_name">Last Name:</label>
+                <input 
+                type="text" 
+                id="last_name" 
+                placeholder="Last Name"
                 onChange={handleChange}
                 />
             </div>
