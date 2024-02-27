@@ -28,7 +28,7 @@ function LoginForm() {
             try {
                 const response = await postLogin(
                 credentials.username,
-                credentials.password
+                credentials.password,
                 );
                 window.localStorage.setItem("token", response.token);
                 navigate("/");
