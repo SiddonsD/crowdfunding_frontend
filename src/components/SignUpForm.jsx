@@ -29,17 +29,21 @@ function SignUpForm() {
             navigate('/homepage')
        
         } catch (error) {
-            // if username already exists
-            if (error.message.includes('username')) {
-                console.error('User with this username already exists.');
-            }
-            // if email already exists
-            else if (error.message.includes('email')) {
-                console.error('User with this email already exists.');
-            } 
-            // all other errors
-            else {
-            console.error(error.message)
+            const errorData = error.response ? await error.response.json() : null;
+
+            if (errorData) {
+                // if username already exists
+                if (errorData.username) {
+                    console.error('User with this username already exists.');
+                // if email already exists
+                } else if (errorData.email) {
+                    console.error('User with this email already exists.');
+                // all other errors
+                } else {
+                    console.error('An unknown error has occurred.')
+                }
+            } else {
+                console.error('An error occured bout no additional information is available.');
         }
     }
 };
