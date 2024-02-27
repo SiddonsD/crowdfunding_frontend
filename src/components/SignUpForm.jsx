@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import postSignUp from '../api/post-sign-up';
+import post from '../api/post-sign-up';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
@@ -22,7 +22,7 @@ function SignUpForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await postSignUp(credentials);
+            const response = await post(credentials.username, credentials.email, credentials.password);
             // auth token stored on local if registration successful
             window.localStorage.setItem('token', response.token);
             // redirect to homepage after registration or account/profile page (once created)
@@ -73,7 +73,7 @@ function SignUpForm() {
                 onChange={handleChange}
                 />
             </div>
-            <button type="submit" onClick={handleSubmit}>Sign Up</button>
+            <button type="submit">Sign Up</button>
         </form>
     );
 }
