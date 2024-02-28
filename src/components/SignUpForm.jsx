@@ -28,7 +28,7 @@ function SignUpForm() {
             // auth token stored on local if registration successful
             window.localStorage.setItem('token', response.token);
             // redirect to homepage after registration or account/profile page (once created)
-            navigate(`${import.meta.env.VITE_API_URL}`)
+            navigate(`/`)
 
         } catch (error) {
             console.error('An error occurred:', error.message);
