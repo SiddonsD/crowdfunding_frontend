@@ -31,21 +31,32 @@ function SignUpForm() {
             navigate('/homepage')
        
         } catch (error) {
-            const errorData = error.response ? await error.response.json() : null;
-
-            if (errorData) {
-                // if username already exists
+            console.error('An error occured:', error.message);
+            if (error instanceof Response) {
+                const errorData = await error.json();
                 if (errorData.username) {
                     console.error('User with this username already exists.');
-                // if email already exists
                 } else if (errorData.email) {
                     console.error('User with this email already exists.');
-                // all other errors
                 } else {
-                    console.error('An unknown error has occurred.')
+                    console.error('An unknown error has occured:', errorData);
                 }
-            } else {
-                console.error('An error occured bout no additional information is available.');
+            }
+            // const errorData = error.response ? await error.response.json() : null;
+
+            // if (errorData) {
+            //     // if username already exists
+            //     if (errorData.username) {
+            //         console.error('User with this username already exists.');
+            //     // if email already exists
+            //     } else if (errorData.email) {
+            //         console.error('User with this email already exists.');
+            //     // all other errors
+            //     } else {
+            //         console.error('An unknown error has occurred.')
+            //     }
+            // } else {
+            //     console.error('An error occured but no additional information is available.');
         }
     }
 };
