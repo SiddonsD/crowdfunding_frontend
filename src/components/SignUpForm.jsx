@@ -111,6 +111,5 @@ function SignUpForm() {
             <button type="submit">Sign Up</button>
         </form>
     );
-}
 
 export default SignUpForm;
