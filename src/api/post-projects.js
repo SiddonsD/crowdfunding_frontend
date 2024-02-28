@@ -5,16 +5,16 @@ async function createProject(projectData, token) {
         // need to tell server we are sending JSON data so we set the Content-Type header to application/json
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Token`
+            "Authorization": `Token ${token}`
         },
         body: JSON.stringify(projectData)
     });
 
     if (!response.ok){
         const errorData = await response.json().catch(() => {
-            throw new Error(errorData.message || 'Failed to create project');
+            throw new Error('Failed to create project');
         });
-        const errorMessage = data?.detail ?? fallbackError;
+        const errorMessage = errorData?.detail || 'An error occured while creating the project';
         throw new Error(errorMessage);
     }
     return await response.json();
