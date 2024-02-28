@@ -6,15 +6,17 @@ function ProjectForm() {
     const auth = useAuth();
     const [projectData, setProjectData] = useState({
         title: '',
-        despription: '',
+        despcription: '',
         goal: '',
-        is_open: '',
-        date_created: '',
-        owner: '',
+        is_open: true,
     })
 
     const handleChange = (event) => {
-        setProjectData({...projectData, [event.target.name]: event.target.value});
+        const { id, value, type, checked } = event.target
+        setProjectData({
+            ...projectData, 
+            [id]: type === 'checkbox' ? checked : value
+        });
     };
 
     const handleSubmit = async (event) => {
@@ -23,25 +25,10 @@ function ProjectForm() {
                 const response = await createProject(projectData, auth.token);
                 console.log('Project created:', response);
             } catch (error) {
-                console.error('Failed to create project:', error);
-
-
-            if (error instanceof Response) {
-                const errorData = await error.json();
-                // if username already exists
-                if (errorData.username) {
-                    console.error('User with this username already exists.');
-                // if email already exists
-                } else if (errorData.email) {
-                    console.error('User with this email already exists.');
-                // all other errors
-                } else {
-                    console.error('An unknown error has occurred:', errorData);
-                }
+                console.error('Failed to create project:', error); 
             }
-        }
-    };
-       
+        };
+
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -72,20 +59,11 @@ function ProjectForm() {
                 />
             </div>
             <div>
-                <label htmlFor="is_open">Email:</label>
+                <label htmlFor="is_open">Is Active:</label>
                 <input 
-                type="boolean" 
-                id="status" 
-                placeholder="Active"
-                onChange={handleChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="date_created">Date Created</label>
-                <input 
-                type="date" 
-                id="date_created" 
-                placeholder="Date"
+                type="checkbox" 
+                id="is_open" 
+                checked={projectData.is_open}
                 onChange={handleChange}
                 />
             </div>
