@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useAuth from "../hooks/use-auth.js";
-import createProject from "..api/post-projects";
+import createProject from "../api/post-projects.js";
 
 function ProjectForm() {
     const auth = useAuth();
