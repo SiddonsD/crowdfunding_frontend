@@ -29,37 +29,41 @@ function SignUpForm() {
             window.localStorage.setItem('token', response.token);
             // redirect to homepage after registration or account/profile page (once created)
             navigate('/homepage')
-       
-        } catch (error) {
-            // console.error('An error occured:', error.message);
-            // if (error instanceof Response) {
-            //     const errorData = await error.json();
-            //     if (errorData.username) {
-            //         console.error('User with this username already exists.');
-            //     } else if (errorData.email) {
-            //         console.error('User with this email already exists.');
-            //     } else {
-            //         console.error('An unknown error has occured:', errorData);
-            //     }
-            // }
-            const errorData = error.response ? await error.response.json() : null;
 
-            if (errorData) {
-                // if username already exists
+        } catch (error) {
+            console.error('An error occurred:', error.message);
+            // Optionally, you can try to extract more details if your API sends structured error messages
+            if (error instanceof Response) {
+                const errorData = await error.json();
                 if (errorData.username) {
                     console.error('User with this username already exists.');
-                // if email already exists
                 } else if (errorData.email) {
                     console.error('User with this email already exists.');
-                // all other errors
                 } else {
-                    console.error('An unknown error has occurred.')
+                    console.error('An unknown error has occurred:', errorData);
                 }
-            } else {
-                console.error('An error occured but no additional information is available.');
+            }
         }
-    }
-};
+       
+//         } catch (error) {
+//             const errorData = error.response ? await error.response.json() : null;
+
+//             if (errorData) {
+//                 // if username already exists
+//                 if (errorData.username) {
+//                     console.error('User with this username already exists.');
+//                 // if email already exists
+//                 } else if (errorData.email) {
+//                     console.error('User with this email already exists.');
+//                 // all other errors
+//                 } else {
+//                     console.error('An unknown error has occurred.')
+//                 }
+//             } else {
+//                 console.error('An error occured but no additional information is available.');
+//         }
+//     }
+// };
 
     return (
         <form onSubmit={handleSubmit}>
