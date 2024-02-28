@@ -44,6 +44,7 @@ function SignUpForm() {
                 }
             }
         }
+    };
        
 //         } catch (error) {
 //             const errorData = error.response ? await error.response.json() : null;
