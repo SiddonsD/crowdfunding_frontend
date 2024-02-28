@@ -28,17 +28,20 @@ function SignUpForm() {
             // auth token stored on local if registration successful
             window.localStorage.setItem('token', response.token);
             // redirect to homepage after registration or account/profile page (once created)
-            navigate('/homepage')
+            navigate(`${import.meta.env.VITE_API_URL}/homepage`)
 
         } catch (error) {
             console.error('An error occurred:', error.message);
-            // Optionally, you can try to extract more details if your API sends structured error messages
+
             if (error instanceof Response) {
                 const errorData = await error.json();
+                // if username already exists
                 if (errorData.username) {
                     console.error('User with this username already exists.');
+                // if email already exists
                 } else if (errorData.email) {
                     console.error('User with this email already exists.');
+                // all other errors
                 } else {
                     console.error('An unknown error has occurred:', errorData);
                 }
@@ -46,25 +49,6 @@ function SignUpForm() {
         }
     };
        
-//         } catch (error) {
-//             const errorData = error.response ? await error.response.json() : null;
-
-//             if (errorData) {
-//                 // if username already exists
-//                 if (errorData.username) {
-//                     console.error('User with this username already exists.');
-//                 // if email already exists
-//                 } else if (errorData.email) {
-//                     console.error('User with this email already exists.');
-//                 // all other errors
-//                 } else {
-//                     console.error('An unknown error has occurred.')
-//                 }
-//             } else {
-//                 console.error('An error occured but no additional information is available.');
-//         }
-//     }
-// };
 
     return (
         <form onSubmit={handleSubmit}>
