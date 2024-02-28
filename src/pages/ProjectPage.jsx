@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import useProject from "../hooks/use-project"; 
 
 function ProjectPage() {
-    // use 'useParams' hook that comes in react router to get id from url so it can be passed to useProject hool 
+    // use 'useParams' hook that comes in react router to get id from url so it can be passed to useProject hook 
     const { id } = useParams();
     // useProject returns three pieces of info: project, isLoading, error 
     const { project, isLoading, error} = useProject(id);

@@ -23,6 +23,7 @@ function NavBar() {
                     <Link to="/login">Login</Link>
                 )}
                 <Link to="/users/register">Sign Up</Link>
+                <Link to="/projects">Create Project</Link>
                 {/* <Link to="/project">Project</Link> */}
             </nav>
             <Outlet />
