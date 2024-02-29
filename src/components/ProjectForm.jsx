@@ -6,7 +6,7 @@ function ProjectForm() {
     const auth = useAuth();
     const [projectData, setProjectData] = useState({
         title: '',
-        despcription: '',
+        description: '',
         goal: '',
         is_open: true,
     })
