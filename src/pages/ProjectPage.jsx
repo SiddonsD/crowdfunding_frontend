@@ -49,9 +49,6 @@ function ProjectPage() {
 
     // sort pledges by most recent
     const sortedPledges = [...project.pledges].sort((a,b) => new Date(b.created) - new Date(a.created));
-    
-    // DEBUGGING log sorted pledges to verify data
-    console.log('Sorted pledges:', sortedPledges);
 
     return (
     <div>
@@ -63,9 +60,6 @@ function ProjectPage() {
         <h3>Pledges:</h3>
         <ul>
             {sortedPledges.map((pledgeData, key) => {
-                // DEBUGGING: log amout to verify if defined as number
-                console.log(`Pledge ${key} amount:`, pledgeData.amount);
-                
                 const supporterName = pledgeData.anonymous ? 'Anonymous' : pledgeData.supporter_detail?.username;
                 return (
                     <li key={key}>
