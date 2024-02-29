@@ -1,4 +1,5 @@
 async function createProject(projectData, token) {
+    console.log("Token recieved in createProject:", token); // debugging auth token - to be removed
     const url = `${import.meta.env.VITE_API_URL}/projects/create`;
     const response = await fetch(url, {
         method: "POST",
