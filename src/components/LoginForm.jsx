@@ -7,7 +7,7 @@ import useAuth from "../hooks/use-auth.js";
 
 function LoginForm() {
     const navigate = useNavigate();
-    const {auth, setAuth} = useAuth();
+    const {setAuth} = useAuth();
 
     const [credentials, setCredentials] = useState({
         username: "",
@@ -15,10 +15,10 @@ function LoginForm() {
     });
 
     const handleChange = (event) => {
-        const { id, value } = event.target;
+        const { name, value } = event.target;
         setCredentials((prevCredentials) => ({
             ...prevCredentials,
-            [id]: value,
+            [name]: value,
         }));
     };
 
@@ -48,13 +48,14 @@ function LoginForm() {
     };
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="username">Username:</label>
                 <input 
                 type="text" 
-                id="username" 
+                name="username" 
                 placeholder="Enter username"
+                value={credentials.username}
                 onChange={handleChange}
                 />
             </div>
@@ -62,12 +63,13 @@ function LoginForm() {
                 <label htmlFor="password">Password:</label>
                 <input 
                 type="password" 
-                id="password" 
+                name="password" 
                 placeholder="Password"
+                value={credentials.password}
                 onChange={handleChange}
                 />
             </div>
-            <button type="submit" onClick={handleSubmit}>Login</button>
+            <button type="submit">Login</button>
         </form>
     );
 }

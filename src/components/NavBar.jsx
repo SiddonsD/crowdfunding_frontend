@@ -1,10 +1,11 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth.js";
 
 function NavBar() {
     const {auth, setAuth} = useAuth();
+    const navigate = useNavigate();
 
-    const handleLogout = () => {
+    const handleLogout = (event) => {
         event.preventDefault(); // prvents default link navigation
         window.localStorage.removeItem("token"); // removes auth token when user logs out
         setAuth({ token: null });
