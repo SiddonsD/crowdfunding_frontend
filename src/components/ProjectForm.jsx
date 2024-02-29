@@ -7,7 +7,7 @@ function ProjectForm() {
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
-        goal: 0,
+        goal: '0',
         image: '',
         is_open: true,
     });
