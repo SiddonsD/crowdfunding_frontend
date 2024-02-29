@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams } from "react-router-dom";
 import useProject from "../hooks/use-project"; 
 
@@ -35,6 +36,10 @@ function ProjectPage() {
 
     // format date-time stamp
     const formatDateTime = (isoString) => {
+        if (!isoString) {
+            console.error('Invalid date:', isoString);
+            return 'Invalid date';
+        }
         const date = new Date(isoString);
         return date.toLocaleString('en-GB', {
             dateStyle: 'short', 
@@ -43,8 +48,11 @@ function ProjectPage() {
     };
 
     // sort pledges by most recent
-    const sortedPledges = [project.pledges].sort((a,b) => new Date(b.created) - new Date(a.created));
+    const sortedPledges = [...project.pledges].sort((a,b) => new Date(b.created) - new Date(a.created));
     
+    // DEBUGGING log sorted pledges to verify data
+    console.log('Sorted pledges:', sortedPledges);
+
     return (
     <div>
         <img src={project.image} alt={`${project.title} image`} />
@@ -55,6 +63,9 @@ function ProjectPage() {
         <h3>Pledges:</h3>
         <ul>
             {sortedPledges.map((pledgeData, key) => {
+                // DEBUGGING: log amout to verify if defined as number
+                console.log(`Pledge ${key} amount:`, pledgeData.amount);
+                
                 const supporterName = pledgeData.anonymous ? 'Anonymous' : pledgeData.supporter_detail?.username;
                 return (
                     <li key={key}>
