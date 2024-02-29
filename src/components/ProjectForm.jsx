@@ -7,7 +7,7 @@ function ProjectForm() {
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
-        goal: '0',
+        goal: '',
         image: '',
         is_open: true,
     });
@@ -75,20 +75,20 @@ function ProjectForm() {
                 />
             </div>
             <div>
-                <label htmlFor="is_open">Is Active:</label>
-                <input 
-                type="checkbox" 
-                id="is_open" 
-                checked={projectData.is_open}
-                onChange={handleChange}
-                />
-            </div>
-            <div>
                 <label htmlFor="date_created">Date Created:</label>
                 <input 
                 type="date" 
                 id="date_created" 
                 checked={projectData.date_created}
+                onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label htmlFor="is_open">Is Active:</label>
+                <input 
+                type="checkbox" 
+                id="is_open" 
+                checked={projectData.is_open}
                 onChange={handleChange}
                 />
             </div>
