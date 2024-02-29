@@ -9,7 +9,7 @@ function NavBar() {
         event.preventDefault(); // prvents default link navigation
         window.localStorage.removeItem("token"); // removes auth token when user logs out
         setAuth({ token: null });
-        Navigate('/'); // navigates to home page post logout
+        navigate('/'); // navigates to home page post logout
     };
 
     // console.log(auth)
