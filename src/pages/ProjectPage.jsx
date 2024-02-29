@@ -8,21 +8,20 @@ function ProjectPage() {
     const { project, isLoading, error} = useProject(id);
 
     if (isLoading) return <h1>Loading...</h1>;
-    console.log(isLoading)
-
     if (error) return <h1>{error.message}</h1>;
-
     if (!project) return <h1>Project not found!</h1>;
-
-    // convert ISO date to dd/mm/yyyy
-    const formatDate = (isoString) => {
-        const date = new Date(isoString);
-        return date.toLocaleDateString('en-GB', {dateStyle: 'short'});
-    };
 
     // convert is_open to active/inactive
     const getStatusText = (is_open) => is_open ? 'Active' : 'Inactive'
 
+    // convert iso date to dd/mm/yyyy
+    const formatDate = (isoString) => {
+        const date = new Date(isoString);
+        return date.toLocaleDateString('en-GB', {
+            dateStyle: 'short'
+        });
+    };
+    
     // format amount as currency
     const formatCurrency = (amount) => {
         return `$${amount.toFixed(2)}`;
@@ -31,11 +30,14 @@ function ProjectPage() {
     // format date-time stamp
     const formatDateTime = (isoString) => {
         const date = new Date(isoString);
-        return date.toLocaleString();
+        return date.toLocaleString('en-GB', {
+            dateStyle: 'short', 
+            timeStyle: 'short'
+        });
     };
 
     // sort pledges by most recent
-    const sortedPledges = project.pledges.sort((a,b) => new Date(b.created) - new Date(a.created));
+    const sortedPledges = [project.pledges].sort((a,b) => new Date(b.created) - new Date(a.created));
     
     return (
     <div>
@@ -47,9 +49,10 @@ function ProjectPage() {
         <h3>Pledges:</h3>
         <ul>
             {sortedPledges.map((pledgeData, key) => {
-                const supporterName = pledgeData.anonymous ? 'Anonymous' : pledgeData.suporter.username;
+                const supporterName = pledgeData.anonymous ? 'Anonymous' : pledgeData.supporter_detail?.username;
                 return (
                     <li key={key}>
+                        {formatCurrency(pledgeData.amount)} from {supporterName}
                         <p>{pledgeData.comment}</p>
                         <p>{formatDateTime(pledgeData.date_created)}</p>
                     </li>
