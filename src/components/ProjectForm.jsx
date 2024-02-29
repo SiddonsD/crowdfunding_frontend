@@ -60,11 +60,29 @@ function ProjectForm() {
                 />
             </div>
             <div>
+                <label htmlFor="image">Image:</label>
+                <input 
+                type="image" 
+                id="image" 
+                placeholder="Image"
+                onChange={handleChange}
+                />
+            </div>
+            <div>
                 <label htmlFor="is_open">Is Active:</label>
                 <input 
                 type="checkbox" 
                 id="is_open" 
                 checked={projectData.is_open}
+                onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label htmlFor="date_created">Date Created:</label>
+                <input 
+                type="date" 
+                id="date_created" 
+                checked={projectData.date_created}
                 onChange={handleChange}
                 />
             </div>
