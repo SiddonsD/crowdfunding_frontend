@@ -7,7 +7,7 @@ function ProjectForm() {
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
-        goal: '',
+        goal: 0,
         image: '',
         is_open: true,
     });
@@ -25,7 +25,7 @@ function ProjectForm() {
             try {
                 const formattedData = {
                     ...projectData,
-                    goal: parseInt(porjectData.goal, 10),
+                    goal: parseInt(projectData.goal, 10),
                 };
                 const response = await createProject(projectData, auth.token);
                 console.log('Project created:', response);
@@ -60,6 +60,7 @@ function ProjectForm() {
                 <input 
                 type="number" 
                 id="goal" 
+                name="goal"
                 placeholder="Project Goal"
                 value={projectData.goal}
                 onChange={handleChange}
