@@ -24,6 +24,12 @@ function ProjectPage() {
     
     // format amount as currency
     const formatCurrency = (amount) => {
+        // if amount is null or not a number use $0.00 default
+        if (amount == null || isNaN(amount)) {
+            console.error('Invalid amount', amount);
+            return '$0.00'
+        }
+        // if valid number, return as currency
         return `$${amount.toFixed(2)}`;
     };
 
