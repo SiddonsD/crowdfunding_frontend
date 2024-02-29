@@ -1,4 +1,4 @@
-import {createContext, useState } from "react";
+import {createContext, useState, useEffect } from "react";
 
 // create the Context
 export const AuthContext = createContext();
@@ -10,6 +10,13 @@ export const AuthProvider = (props) => {
         // initialse the context with token form local storage, this way if user refereshes the page, will still have token in memory
         token: window.localStorage.getItem("token"),
     });
+
+    useEffect(() => {
+        const token = window.localStorage.getItem("token");
+        if (token) {
+            setAuth((prevAuth) => ({...prevAuth, token}));
+        }
+    }, []);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>

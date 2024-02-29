@@ -3,13 +3,13 @@ import useAuth from "../hooks/use-auth.js";
 import createProject from "../api/post-projects.js";
 
 function ProjectForm() {
-    const auth = useAuth();
+    const {auth, setAuth} = useAuth();
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
         goal: '',
         is_open: true,
-    })
+    });
 
     const handleChange = (event) => {
         const { id, value, type, checked } = event.target
@@ -24,6 +24,7 @@ function ProjectForm() {
             try {
                 const response = await createProject(projectData, auth.token);
                 console.log('Project created:', response);
+                // setAuth((prevAuth) => ({...prevAuth, token: newToken}));
             } catch (error) {
                 console.error('Failed to create project:', error); 
             }
