@@ -3,7 +3,7 @@ import useAuth from "../hooks/use-auth.js";
 import createProject from "../api/post-projects.js";
 
 function ProjectForm() {
-    const {auth, setAuth} = useAuth();
+    const {auth} = useAuth();
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
@@ -27,7 +27,7 @@ function ProjectForm() {
                     ...projectData,
                     goal: parseInt(projectData.goal, 10),
                 };
-                const response = await createProject(projectData, auth.token);
+                const response = await createProject(formattedDataData, auth.token);
                 console.log('Project created:', response);
                 // setAuth((prevAuth) => ({...prevAuth, token: newToken}));
             } catch (error) {
@@ -40,26 +40,30 @@ function ProjectForm() {
             <div>
                 <label htmlFor="title">Project Title:</label>
                 <input 
-                type="text" 
-                id="title" 
+                type="text"
+                id="title"
+                name="title"
                 placeholder="Project Title"
+                value={projectData.title}
                 onChange={handleChange}
                 />
             </div>
             <div>
                 <label htmlFor="description">Description:</label>
-                <input 
-                type="text" 
-                id="description" 
+                <input
+                type="text"
+                id="description"
+                name="description"
                 placeholder="Description"
+                value={projectData.description}
                 onChange={handleChange}
                 />
             </div>
             <div>
                 <label htmlFor="goal">Project Goal:</label>
-                <input 
-                type="number" 
-                id="goal" 
+                <input
+                type="number"
+                id="goal"
                 name="goal"
                 placeholder="Project Goal"
                 value={projectData.goal}
@@ -68,27 +72,30 @@ function ProjectForm() {
             </div>
             <div>
                 <label htmlFor="image">Image:</label>
-                <input 
-                type="url" 
-                id="image" 
-                placeholder="Image"
+                <input
+                type="url"
+                id="image"
+                name="image"
+                placeholder="Image URL"
+                value={projectData.image}
                 onChange={handleChange}
                 />
             </div>
             <div>
                 <label htmlFor="date_created">Date Created:</label>
-                <input 
-                type="date" 
-                id="date_created" 
+                <input
+                type="date"
+                id="date_created"
+                name="date_created"
                 checked={projectData.date_created}
                 onChange={handleChange}
                 />
             </div>
             <div>
                 <label htmlFor="is_open">Is Active:</label>
-                <input 
-                type="checkbox" 
-                id="is_open" 
+                <input
+                type="checkbox"
+                id="is_open"
                 checked={projectData.is_open}
                 onChange={handleChange}
                 />
