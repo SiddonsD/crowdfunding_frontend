@@ -7,21 +7,26 @@ function ProjectForm() {
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
-        goal: '',
+        goal: 0,
+        image: '',
         is_open: true,
     });
 
     const handleChange = (event) => {
-        const { id, value, type, checked } = event.target
+        const { name, value, type, checked } = event.target
         setProjectData({
             ...projectData, 
-            [id]: type === 'checkbox' ? checked : value
+            [name]: type === 'checkbox' ? checked : value
         });
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
             try {
+                const formattedData = {
+                    ...projectData,
+                    goal: parseInt(porjectData.goal, 10),
+                };
                 const response = await createProject(projectData, auth.token);
                 console.log('Project created:', response);
                 // setAuth((prevAuth) => ({...prevAuth, token: newToken}));
@@ -53,16 +58,17 @@ function ProjectForm() {
             <div>
                 <label htmlFor="goal">Project Goal:</label>
                 <input 
-                type="text" 
+                type="number" 
                 id="goal" 
                 placeholder="Project Goal"
+                value={projectData.goal}
                 onChange={handleChange}
                 />
             </div>
             <div>
                 <label htmlFor="image">Image:</label>
                 <input 
-                type="image" 
+                type="url" 
                 id="image" 
                 placeholder="Image"
                 onChange={handleChange}
