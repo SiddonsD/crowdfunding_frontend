@@ -14,13 +14,21 @@ function ProjectPage() {
 
     if (!project) return <h1>Project not found!</h1>;
 
+    // convert ISO date to dd/mm/yyyy
+    const formatDate = (isoString) => {
+        const date = new Date(isoString);
+        return date.toLocaleDateString('en-GB', {dateStyle: 'short'});
+    };
+
+    // convert is_open to active/inactive
+    const getStatusText = (is_open) => is_open ? 'Active' : 'Inactive'
 
     return (
     <div>
         <img src={project.image} alt={`${project.title} image`} />
         <h2>{project.title}</h2>
-        <h3>Date created: {project.date_created}</h3>
-        <h3>{`Status: ${project.is_open}`}</h3>
+        <h3>Campaign Start Date: {formatDate(project.date_created)}</h3>
+        <h3>Status: {getStatusText(project.is_open)}</h3>
         <h3>Description: {project.description}</h3>
         <h3>Pledges:</h3>
         <ul>
