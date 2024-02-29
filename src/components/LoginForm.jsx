@@ -31,7 +31,8 @@ function LoginForm() {
                 credentials.password,
                 );
                 window.localStorage.setItem("token", response.token);
-                navigate("/");
+                setAuth({token: response.token}); // update auth state
+                navigate("/"); // navigate home
             } catch (err) {
                 window.alert(err.message);
             }
