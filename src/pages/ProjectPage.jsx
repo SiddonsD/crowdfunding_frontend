@@ -23,6 +23,20 @@ function ProjectPage() {
     // convert is_open to active/inactive
     const getStatusText = (is_open) => is_open ? 'Active' : 'Inactive'
 
+    // format amount as currency
+    const formatCurrency = (amount) => {
+        return `$${amount.toFixed(2)}`;
+    };
+
+    // format date-time stamp
+    const formatDateTime = (isoString) => {
+        const date = new Date(isoString);
+        return date.toLocaleString();
+    };
+
+    // sort pledges by most recent
+    const sortedPledges = project.pledges.sort((a,b) => new Date(b.created) - new Date(a.created));
+    
     return (
     <div>
         <img src={project.image} alt={`${project.title} image`} />
@@ -32,10 +46,12 @@ function ProjectPage() {
         <h3>Description: {project.description}</h3>
         <h3>Pledges:</h3>
         <ul>
-            {project.pledges.map((pledgeData, key) => {
+            {sortedPledges.map((pledgeData, key) => {
+                const supporterName = pledgeData.anonymous ? 'Anonymous' : pledgeData.suporter.username;
                 return (
                     <li key={key}>
-                        {pledgeData.amount} from {pledgeData.supporter}
+                        <p>{pledgeData.comment}</p>
+                        <p>{formatDateTime(pledgeData.date_created)}</p>
                     </li>
                 );
             })}
