@@ -3,7 +3,7 @@ async function getProject(projectId) {
     const response = await fetch (url, { method: 'GET' });
 
     if(!response.ok) {
-        const fallbackError = `Error fetching project with id ${projectID}`;
+        const fallbackError = `Error fetching project with id ${projectId}`;
 
         const data = await response.json().catch(() => {
             throw new Error (fallbackError);

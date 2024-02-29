@@ -7,11 +7,13 @@ function ProjectPage() {
     // useProject returns three pieces of info: project, isLoading, error 
     const { project, isLoading, error} = useProject(id);
 
-    if (isLoading) return <h1>Loading...</h1>
-
-    if (error) return <h1>{error.message}</h1>
-
+    if (isLoading) return <h1>Loading...</h1>;
     console.log(isLoading)
+
+    if (error) return <h1>{error.message}</h1>;
+
+    if (!project) return <h1>Project not found!</h1>;
+
 
     return (
     <div>
