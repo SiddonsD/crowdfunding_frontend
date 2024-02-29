@@ -27,7 +27,7 @@ function ProjectForm() {
                     ...projectData,
                     goal: parseInt(projectData.goal, 10),
                 };
-                const response = await createProject(formattedDataData, auth.token);
+                const response = await createProject(formattedData, auth.token);
                 console.log('Project created:', response);
                 // setAuth((prevAuth) => ({...prevAuth, token: newToken}));
             } catch (error) {
