@@ -1,0 +1,12 @@
+.progress-bar-container {
+    width: 100%;
+    background-color: #eee7e7;
+    border-radius: 5px;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #994caf;
+    border-radius: 5px;
+    transition: width 0.4s ease;
+}
