@@ -22,7 +22,7 @@ function ProjectPage() {
     const currentDate = new Date();
     const endDate = new Date(project.end_date);
     const timeDiff = endDate.getTime() - currentDate.getTime();
-    const daysLeft = Math.ceil.ceil(timeDiff / (1000 * 3600 * 24));
+    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
     // calculate percentage of goal raised
     const goalPercentage = Math.min((totalPledged / project.goal) * 100, 100);
