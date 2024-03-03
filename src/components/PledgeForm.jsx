@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
+import {makePledgeAPIRequest} from '../api/post-pledge';
 
-const PledgeFrom = ({ projectId, onPledgeSuccess, onClose, token }) => {
-    const [amount, setAmount] = useState('');
+const PledgeForm = ({ projectId, onPledgeSuccess, onClose, token }) => {
+    const [selectedAmount, setSelectedAmount] = useState('');
     const [customAmount, setCustomAmount] = useState('');
     const [error, setError] = useState('');
     const predefinedAmounts = [10, 20, 50, 100];
 
-    const handlePledge  = async (selectedAmount) => {
+    const handlePledge  = async (pledgeAmount) => {
         try{
             const response = await makePledgeAPIRequest(projectId, pledgeAmount, token);
             onPledgeSuccess(response);
@@ -18,10 +19,11 @@ const PledgeFrom = ({ projectId, onPledgeSuccess, onClose, token }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (amount) {
+        const amount = customAmount || selectedAmount
+        if (amount && parseFloat(amount)>1) {
             handlePledge(amount);
         } else {
-            setError('Please enter or select an amount to pledge.');
+            setError('Please enter or select an amount greater than $1 to pledge.');
         }
     };
 
