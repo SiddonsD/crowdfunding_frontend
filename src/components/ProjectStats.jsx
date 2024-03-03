@@ -29,4 +29,4 @@ const ProjectStats = ({ project }) => {
     );
 };
 
-export default ProjectStats
+export default ProjectStats;
