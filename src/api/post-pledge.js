@@ -7,7 +7,7 @@ async function makePledgeAPIRequest(projectId, amount, token) {
             "Authorization": `Token ${token}`
         },
         body: JSON.stringify({
-            project: projectId
+            project: projectId,
             amount: parseFloat(amount)
         })
     });
