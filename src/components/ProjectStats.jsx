@@ -1,5 +1,5 @@
 import React from "react";
-import { formatCurrency, formatDate, getStatusText } from "/src/ops";
+import { formatCurrency, formatDate, getStatusText } from "../ops";
 import "./ProjectStats.css";
 
 const ProjectStats = ({ project }) => {
