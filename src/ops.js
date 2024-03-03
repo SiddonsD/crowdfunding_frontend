@@ -10,7 +10,7 @@ export const formatDate = (isoString) => {
 };
 
 // format amount as currency
-const formatCurrency = (amount) => {
+export const formatCurrency = (amount) => {
     // if amount is null or not a number use $0.00 default
     if (amount == null || isNaN(amount)) {
         console.error('Invalid amount', amount);
