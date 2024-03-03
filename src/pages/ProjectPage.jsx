@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useProject from "../hooks/use-project";
-import ProjectStats from "../components/ProjectStats";
-import PledgeList from "../components/PledgeList";
+import ProjectStats from "./ProjectStats";
+import PledgeList from "./PledgeList";
 // import "./ProjectPage.css";
 
 function ProjectPage() {
@@ -18,10 +18,12 @@ function ProjectPage() {
     return (
     <div>
         <img src={project.image} alt={`${project.title} image`} />
-        <h2>{project.title}</h2>
+        <h1>{project.title}</h1>
+        <ProjectStats project={project} />
         <h3>Campaign Start Date: {formatDate(project.date_created)}</h3>
         <h3>Status: {getStatusText(project.is_open)}</h3>
         <h3>Description: {project.description}</h3>
+        <PledgeList pledges={project.pledges}/>
     </div>
     );
 }
