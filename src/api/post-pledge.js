@@ -19,3 +19,5 @@ async function makePledgeAPIRequest(projectId, amount, token) {
         
     return await response.json();
 }
+
+export default makePledgeAPIRequest;

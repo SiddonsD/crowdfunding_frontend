@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {makePledgeAPIRequest} from '../api/post-pledge';
+import makePledgeAPIRequest from '../api/post-pledge';
 
 const PledgeForm = ({ projectId, onPledgeSuccess, onClose, token }) => {
     const [selectedAmount, setSelectedAmount] = useState('');
