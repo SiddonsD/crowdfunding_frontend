@@ -1,9 +1,9 @@
 import React from "react";
-import { formatCurrency, formatDate } from "../ops";
+import { formatCurrency, formatDateTime } from "../ops";
 
 const PledgeList = ({pledges}) => {
     // sort pledges by most recent
-    const sortedPledges = [...project.pledges].sort((a,b) => new Date(b.created) - new Date(a.created));
+    const sortedPledges = [...pledges].sort((a,b) => new Date(b.created) - new Date(a.created));
 
     return (
         <>
