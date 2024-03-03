@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useProject from "../hooks/use-project";
-import ProjectStats from "./ProjectStats";
-import PledgeList from "./PledgeList";
+import ProjectStats from "../ProjectStats";
+import PledgeList from "../PledgeList";
 // import "./ProjectPage.css";
 
 function ProjectPage() {
