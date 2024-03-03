@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useProject from "../hooks/use-project";
 import ProjectStats from "../components/ProjectStats";
 import PledgeList from "../components/PledgeList";
+import { formatDate, getStatusText } from "../ops";
 // import "./ProjectPage.css";
 
 function ProjectPage() {
