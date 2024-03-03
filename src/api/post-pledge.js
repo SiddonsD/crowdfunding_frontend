@@ -1,5 +1,5 @@
 async function makePledgeAPIRequest(projectId, amount, token) {
-    const url = `${import.meta.env.VITE_API_URL}/pledges/`;
+    const url = `${import.meta.env.VITE_API_URL}/pledges`;
     const response = await fetch(url, {
         method: "POST",
         headers: {

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PledgeForm from './PledgeForm';
 import useAuth from "../hooks/use-auth.js";
+import {makePledgeAPIRequest} from '../api/post-pledge.js'
 
 const PledgeModal = ({ projectId, onPledgeSuccess}) => {
     const [showModal, setShowModal] = useState(false);
@@ -25,7 +26,7 @@ const PledgeModal = ({ projectId, onPledgeSuccess}) => {
 
     const handlePledgeSubmit = async (pledgeAmount) => {
         try {
-        const url = `${import.meta.env.VITE_API_URL}/api/post-pledge`;
+        const url = `${import.meta.env.VITE_API_URL}/pledges`;
         const response = await makePledgeAPIRequest(projectId, pledgeAmount, auth?.token);
         setShowThankYou(true);
         } catch (error) {
