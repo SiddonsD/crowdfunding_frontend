@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useProject from "../hooks/use-project.js";
-import { formatDate } from '../ops.js';
+import { formatDate, getStatusText } from '../ops.js';
 import ProjectStats from "../components/ProjectStats.jsx";
 import PledgeList from "../components/PledgeList.jsx";
 
