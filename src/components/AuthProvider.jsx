@@ -19,7 +19,7 @@ export const AuthProvider = (props) => {
             try {
               const response = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
                 headers: {
-                  Authentication: `Token ${token}`,
+                  Authorization: `Token ${token}`,
                 },
               });
     
