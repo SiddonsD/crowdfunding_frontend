@@ -3,7 +3,7 @@ export const getStatusText = (is_open) => is_open ? 'Active' : 'Inactive'
 
 // convert iso date to dd/mm/yyyy
 export const formatDate = (isoString) => {
-    if (!dateString) return 'Invalid date';
+    if (!isoString) return 'Invalid date';
     const date = new Date(isoString);
     return date.toLocaleDateString('en-GB', {
         dateStyle: 'short'
