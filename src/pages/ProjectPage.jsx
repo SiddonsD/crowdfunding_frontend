@@ -6,7 +6,6 @@ import ProjectStats from "../components/ProjectStats";
 import PledgeList from "../components/PledgeList";
 import PledgeModal from "../components/PledgeModal";
 import { formatDate, getStatusText } from "../ops";
-// import "./ProjectPage.css";
 
 function ProjectPage() {
     // use 'useParams' hook that comes in react router to get id from url so it can be passed to useProject hook 

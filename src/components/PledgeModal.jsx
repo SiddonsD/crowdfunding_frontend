@@ -4,17 +4,17 @@ import useAuth from "../hooks/use-auth.js";
 import makePledgeAPIRequest from '../api/post-pledge.js'
 
 const PledgeModal = ({ projectId, onPledgeSuccess}) => {
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(true);
     const [showThankYou, setShowThankYou] = useState(false);
     const {auth} = useAuth();
 
     const handleOpenModal = () => {
-        if (auth?.token) {
+        // if (auth?.token) {
             setShowModal(true);
             setShowThankYou(false);
-        } else {
-            alert ('You must be logged in to make a pledge.')
-        }
+        // } else {
+        //     alert ('You must be logged in to make a pledge.')
+        // }
     };
 
     const handleCloseModal = () => {
