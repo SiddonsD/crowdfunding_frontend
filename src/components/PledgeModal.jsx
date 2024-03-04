@@ -9,12 +9,8 @@ const PledgeModal = ({ projectId, onPledgeSuccess}) => {
     const {auth} = useAuth();
 
     const handleOpenModal = () => {
-        if (auth?.token) {
             setShowModal(true);
             setShowThankYou(false);
-        } else {
-            alert ('You must be logged in to make a pledge.')
-        }
     };
 
     const handleCloseModal = () => {
@@ -25,9 +21,14 @@ const PledgeModal = ({ projectId, onPledgeSuccess}) => {
     };
 
     const handlePledgeSubmit = async (pledgeAmount) => {
+        if (!auth?.token) {
+            alert('Your must be logged in to make a pledge.');
+            return;
+        }
+
         try {
-        const response = await makePledgeAPIRequest(projectId, pledgeAmount, auth?.token);
-        setShowThankYou(true);
+            const response = await makePledgeAPIRequest(projectId, pledgeAmount, auth?.token);
+            setShowThankYou(true);
         } catch (error) {
             console.error('Pledge submission error:', error);
         }
