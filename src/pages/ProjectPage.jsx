@@ -6,6 +6,7 @@ import ProjectStats from "../components/ProjectStats.jsx";
 import PledgeList from "../components/PledgeList.jsx";
 import PledgeForm from '../components/PledgeForm';
 import { useAuth } from '../hooks/use-auth';
+import getProject from "../api/get-project.js";
 
 
 function ProjectPage() {
@@ -16,12 +17,21 @@ function ProjectPage() {
     // checks if user is authenticated
     const { auth } = useAuth();
 
-    const handlePledgeSuccess = (newPledge) => {
-        // updates project state with new pledge
-        setProject({
-          ...project,
-          pledges: [...project.pledges, newPledge],
-        });
+    const reloadProject = async () => {
+        try {
+          const updatedProject = await getProject(id);
+          setProject(updatedProject);
+        } catch (error) {
+          console.error('Failed to reload project:', error);
+        }
+      };
+
+      const handlePledgeSuccess = (newPledge) => {
+        // Update project state with new pledge
+        setProject((currentProject) => ({
+          ...currentProject,
+          pledges: [...currentProject.pledges, newPledge],
+        }));
       };
 
     if (isLoading) return <h1>Loading...</h1>;
@@ -40,7 +50,7 @@ function ProjectPage() {
         <h3>Description: {project.description}</h3>
         <div>
             {auth.token && (
-            <PledgeForm projectId={id} onPledgeSuccess={reloadProject} />
+            <PledgeForm projectId={id} onPledgeSuccess={handlePledgeSuccess} />
             )}
         </div>
         <div>
