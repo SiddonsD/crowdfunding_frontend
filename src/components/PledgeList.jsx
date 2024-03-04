@@ -9,11 +9,11 @@ const PledgeList = ({pledges}) => {
         <>
         <h3>Pledges:</h3>
         <ul>
-            {pledges.map((pledgeData, index) =>(
+            {sortedPledges.map((pledgeData, index) =>(
                 <li key={index}>
                     ${pledgeData.amount} from {pledgeData.anonymous? 'Anonymous' : pledgeData.supporter_detail.username}
                     <p>{pledgeData.comment}</p>
-                    <p>{formatDateTime(pledge.date_created)}</p>
+                    <p>{formatDateTime(pledgeData.date_created)}</p>
                 </li>
             ))}
             </ul>
