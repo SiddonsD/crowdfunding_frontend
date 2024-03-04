@@ -1,5 +1,5 @@
 import React from "react";
-import { formatCurrency, formatDate, getStatusText } from "../ops";
+import { formatCurrency } from "../src/ops";
 import "./ProjectStats.css";
 
 const ProjectStats = ({ project }) => {
@@ -29,4 +29,4 @@ const ProjectStats = ({ project }) => {
     );
 };
 
-export default ProjectStats
+export default ProjectStats;
