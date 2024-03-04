@@ -20,7 +20,8 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (auth.token && parseFloat(pledgeData.amount) > 1) {
+    const amount = parseFloat(pledgeData.amount);
+    if (auth.token && !isNaN(amount) && amount > 1) {
       try {
         const response = await postPledge(pledgeData, projectId, auth.token);
         onPledgeSuccess(response);
@@ -28,6 +29,8 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
       } catch (error) {
         console.error('Pledge submission failed:', error);
       }
+    } else {
+      console.error('Invalid amount', pledgeData.amount);
     }
   };
 
