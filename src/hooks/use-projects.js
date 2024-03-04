@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import getProjects from "../api/get-projects.js";
 
-export default function useProjects() {
+function useProjects() {
     // using useState hook to create a state variable called projects and a fuction to update it called setProjects, initialising the state variable with an empty array.
     const [projects, setProjects] = useState([]);
     // create a state variable called isLoading and error to keep track of loading state and any errors
@@ -25,4 +25,4 @@ export default function useProjects() {
     return {projects, isLoading, error};
 }
 
-// export default getProjects;
+export default useProjects;
