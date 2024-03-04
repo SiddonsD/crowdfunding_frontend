@@ -20,7 +20,10 @@ async function postPledge(pledgeData, projectId, token) {
       const errorMessage = data?.detail ?? fallbackError;
       throw new Error(errorMessage);
     }
-    return await response.json();
-  }
+
+  const newPledge = await response.json();
+  console.log('New pledge:', newPledge);
+  return newPledge;
+}
   
   export default postPledge;

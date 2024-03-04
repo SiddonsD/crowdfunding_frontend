@@ -7,19 +7,16 @@ const PledgeList = ({pledges}) => {
 
     return (
         <>
-                <h3>Pledges:</h3>
+        <h3>Pledges:</h3>
         <ul>
-            {sortedPledges.map((pledgeData, key) => {
-                const supporterName = pledgeData.anonymous ? 'Anonymous' : pledgeData.supporter_detail?.username;
-                return (
-                    <li key={key}>
-                        {formatCurrency(pledgeData.amount)} from {supporterName}
-                        <p>{pledgeData.comment}</p>
-                        <p>{formatDateTime(pledgeData.date_created)}</p>
-                    </li>
-                );
-            })}
-        </ul>
+            {pledges.map((pledgeData, index) =>(
+                <li key={index}>
+                    ${pledgeData.amount} from {pledgeData.anonymous? 'Anonymous' : pledgeData.supporterName}
+                    <p>{pledgeData.comment}</p>
+                    <p>{formatDateTime(pledgeData.date_created)}</p>
+                </li>
+            ))}
+            </ul>
         </>
     );
 };

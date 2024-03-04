@@ -27,10 +27,12 @@ function ProjectPage() {
       };
 
       const handlePledgeSuccess = (newPledge) => {
+        console.log('New pledge to add to state:', newPledge);
+        
         // Update project state with new pledge
         setProject((currentProject) => ({
           ...currentProject,
-          pledges: [...currentProject.pledges, newPledge],
+          pledges: [newPledge, ...currentProject.pledges],
         }));
       };
 
