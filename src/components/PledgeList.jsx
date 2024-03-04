@@ -1,5 +1,5 @@
 import React from "react";
-import { formatCurrency, formatDateTime } from "../ops.js";
+import { formatDateTime } from "../ops.js";
 
 const PledgeList = ({pledges}) => {
     // sort pledges by most recent
@@ -11,9 +11,9 @@ const PledgeList = ({pledges}) => {
         <ul>
             {pledges.map((pledgeData, index) =>(
                 <li key={index}>
-                    ${pledgeData.amount} from {pledgeData.anonymous? 'Anonymous' : pledgeData.supporterName}
+                    ${pledgeData.amount} from {pledgeData.anonymous? 'Anonymous' : pledgeData.supporter_detail.name}
                     <p>{pledgeData.comment}</p>
-                    <p>{formatDateTime(pledgeData.date_created)}</p>
+                    <p>{formatDateTime(pledge.date_created)}</p>
                 </li>
             ))}
             </ul>
