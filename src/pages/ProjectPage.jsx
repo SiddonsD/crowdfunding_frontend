@@ -20,9 +20,15 @@ function ProjectPage() {
     <div>
         <img src={project.image} alt={`${project.title} image`} />
         <h2>{project.title}</h2>
+        <div>
+            <ProjectStats project={project}/>
+        </div>
         <h3>Campaign Start Date: {formatDate(project.date_created)}</h3>
         <h3>Status: {getStatusText(project.is_open)}</h3>
         <h3>Description: {project.description}</h3>
+        <div>
+            <PledgeList pledges={project.pledges}/>
+        </div>
     </div>
     );
 }
