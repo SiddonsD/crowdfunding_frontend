@@ -18,13 +18,15 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     });
   };
 
+  console.log(auth)
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const amount = parseFloat(pledgeData.amount);
     if (auth.token && !isNaN(amount) && amount > 1) {
       try {
         const userName = auth.user.username;
-        const response = await postPledge(pledgeData, projectId, auth.token, userName);
+        const response = await postPledge(pledgeData, projectId, auth.token);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
       } catch (error) {
