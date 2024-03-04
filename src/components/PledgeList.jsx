@@ -11,7 +11,7 @@ const PledgeList = ({pledges}) => {
         <ul>
             {pledges.map((pledgeData, index) =>(
                 <li key={index}>
-                    ${pledgeData.amount} from {pledgeData.anonymous? 'Anonymous' : pledgeData.supporter_detail.name}
+                    ${pledgeData.amount} from {pledgeData.anonymous? 'Anonymous' : pledgeData.supporter_detail.username}
                     <p>{pledgeData.comment}</p>
                     <p>{formatDateTime(pledge.date_created)}</p>
                 </li>
