@@ -1,5 +1,5 @@
 import React from "react";
-import { formatCurrency, formatDateTime } from "../src/ops";
+import { formatCurrency, formatDateTime } from "../ops.js";
 
 const PledgeList = ({pledges}) => {
     // sort pledges by most recent

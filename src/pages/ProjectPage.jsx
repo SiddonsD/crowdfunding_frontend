@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useProject from "../hooks/use-project";
-import { formatDate } from '../src/ops';
-import ProjectStats from "../components/ProjectStats";
-import PledgeList from "../components/PledgeList";
+import useProject from "../hooks/use-project.js";
+import { formatDate } from '../ops.js';
+import ProjectStats from "../components/ProjectStats.jsx";
+import PledgeList from "../components/PledgeList.jsx";
 
 
 function ProjectPage() {

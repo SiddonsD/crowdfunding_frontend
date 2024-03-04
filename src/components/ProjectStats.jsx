@@ -1,5 +1,5 @@
 import React from "react";
-import { formatCurrency } from "../src/ops";
+import { formatCurrency } from "../ops.js";
 import "./ProjectStats.css";
 
 const ProjectStats = ({ project }) => {
