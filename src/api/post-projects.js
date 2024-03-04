@@ -5,7 +5,7 @@ async function createProject(projectData, token) {
         // need to tell server we are sending JSON data so we set the Content-Type header to application/json
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Token ${token}`
+            "Authentication": `Token ${token}`
         },
         body: JSON.stringify(projectData)
     });

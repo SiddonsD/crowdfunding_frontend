@@ -4,13 +4,25 @@ import useProject from "../hooks/use-project.js";
 import { formatDate, getStatusText } from '../ops.js';
 import ProjectStats from "../components/ProjectStats.jsx";
 import PledgeList from "../components/PledgeList.jsx";
+import PledgeForm from '../components/PledgeForm';
+import { useAuth } from '../hooks/use-auth';
 
 
 function ProjectPage() {
     // use 'useParams' hook that comes in react router to get id from url so it can be passed to useProject hook 
     const { id } = useParams();
     // useProject returns three pieces of info: project, isLoading, error 
-    const { project, isLoading, error} = useProject(id);
+    const { project, isLoading, error, setProject} = useProject(id);
+    // checks if user is authenticated
+    const { auth } = useAuth();
+
+    const handlePledgeSuccess = (newPledge) => {
+        // updates project state with new pledge
+        setProject({
+          ...project,
+          pledges: [...project.pledges, newPledge],
+        });
+      };
 
     if (isLoading) return <h1>Loading...</h1>;
     if (error) return <h1>{error.message}</h1>;
@@ -26,6 +38,11 @@ function ProjectPage() {
         <h3>Campaign Start Date: {formatDate(project.date_created)}</h3>
         <h3>Status: {getStatusText(project.is_open)}</h3>
         <h3>Description: {project.description}</h3>
+        <div>
+            {auth.token && (
+            <PledgeForm projectId={id} onPledgeSuccess={reloadProject} />
+            )}
+        </div>
         <div>
             <PledgeList pledges={project.pledges}/>
         </div>

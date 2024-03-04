@@ -9,14 +9,42 @@ export const AuthProvider = (props) => {
     const [auth, setAuth] = useState({
         // initialse the context with token form local storage, this way if user refereshes the page, will still have token in memory
         token: window.localStorage.getItem("token"),
+        user: null,
     });
 
     useEffect(() => {
-        const token = window.localStorage.getItem("token");
-        if (token) {
-            setAuth((prevAuth) => ({...prevAuth, token}));
-        }
-    }, []);
+        const fetchUserDetails = async () => {
+          const token = window.localStorage.getItem("token");
+          if (token) {
+            try {
+              const response = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
+                headers: {
+                  Authentication: `Token ${token}`,
+                },
+              });
+    
+              if (!response.ok) {
+                // handle errors e.g. invalid token
+                throw new Error('Error fetching user details');
+              }
+    
+              const userDetails = await response.json();
+              setAuth((prevAuth) => ({
+                ...prevAuth,
+                token,
+                user: userDetails,
+              }));
+            } catch (error) {
+              console.error("Error fetching user details:", error);
+              // clear token if invalid
+              window.localStorage.removeItem("token");
+              setAuth({ token: null, user: null });
+            }
+          }
+        };
+        
+        fetchUserDetails();
+  }, []);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>

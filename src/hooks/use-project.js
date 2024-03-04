@@ -19,5 +19,5 @@ export default function useProject(projectId) {
     // we pass the projectID to the dependency array so the hook will re-run if the projectID changes
     }, [projectId]);
 
-    return { project, isLoading, error };
+    return { project, setProject, isLoading, error };
 }
