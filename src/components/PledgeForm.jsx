@@ -10,6 +10,8 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     anonymous: false,
   });
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
     setPledgeData({
@@ -74,6 +76,9 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
         Pledge anonymously
       </label>
       <button type="submit">Pledge</button>
+      <div>
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      </div>
     </form>
   );
 };
