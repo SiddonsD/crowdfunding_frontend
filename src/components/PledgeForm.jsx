@@ -10,8 +10,6 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     anonymous: false,
   });
 
-  const [errorMessage, setErrorMessage] = useState('');
-
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
     setPledgeData({
@@ -29,7 +27,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
 
     if (!auth.token || !auth.user) {
       console.error('User is not authenticated.');
-      setErrorMessage('You must be logged in to submit a pledge.')
+      console.error('You must be logged in to submit a pledge.')
       // window.location.href="/login";
       return;
     }
@@ -76,9 +74,6 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
         Pledge anonymously
       </label>
       <button type="submit">Pledge</button>
-      <div>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
-      </div>
     </form>
   );
 };
