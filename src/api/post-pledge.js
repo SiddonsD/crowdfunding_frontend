@@ -9,7 +9,6 @@ async function postPledge(pledgeData, projectId, token) {
       body: JSON.stringify({
         ...pledgeData,
         project: projectId,
-        supporter: userName,
       }),
     });
   

@@ -18,17 +18,25 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     });
   };
 
+  // DEBUGGING to be deleted
   console.log(auth)
   
   const handleSubmit = async (event) => {
     event.preventDefault();
     const amount = parseFloat(pledgeData.amount);
-    if (auth.token && !isNaN(amount) && amount > 1) {
+
+    if (!auth.token || !auth.user) {
+      console.error('User is not authenticated.');
+      window.location.href="/login";
+      return;
+    }
+
+    if (!isNaN(amount) && amount > 1) {
       try {
-        const supporterId = auth.user.id;
+        const supporterId = auth.user.username;
         const response = await postPledge({...pledgeData, supporter: supporterId}, projectId, auth.token );
         onPledgeSuccess(response);
-        setPledgeData({ amount: '', comment: '', anonymous: false, supporter: supporterId });
+        setPledgeData({ amount: '', comment: '', anonymous: false });
       } catch (error) {
         console.error('Pledge submission failed:', error);
       }
@@ -36,10 +44,6 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
       console.error('Invalid amount', pledgeData.amount);
     }
   };
-
-  // if (!auth.token) {
-  //   return null;
-  // }
 
   return (
     <form onSubmit={handleSubmit}>
