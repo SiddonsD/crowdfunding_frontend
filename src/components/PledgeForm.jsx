@@ -25,6 +25,9 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     event.preventDefault();
     const amount = parseFloat(pledgeData.amount);
 
+    console.log('Auth token:', auth.token);
+    console.log('Auth user:', auth.user);  
+
     if (!auth.token || !auth.user) {
     // if (!auth.token ) {
       console.error('User is not authenticated.');
