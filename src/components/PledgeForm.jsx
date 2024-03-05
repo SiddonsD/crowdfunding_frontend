@@ -25,7 +25,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     const amount = parseFloat(pledgeData.amount);
     if (auth.token && !isNaN(amount) && amount > 1) {
       try {
-        const supporterId = auth.user.username
+        const supporterId = auth.user.id;
         const response = await postPledge({...pledgeData, supporter: supporterId}, projectId, auth.token );
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false, supporter: supporterId });
