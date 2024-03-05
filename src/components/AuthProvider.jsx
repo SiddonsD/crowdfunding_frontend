@@ -17,7 +17,7 @@ export const AuthProvider = (props) => {
           const token = window.localStorage.getItem("token");
           if (token) {
             try {
-              const response = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
+              const response = await fetch(`${import.meta.env.VITE_API_URL}/users/id`, {
                 headers: {
                   Authorization: `Token ${token}`,
                 },
