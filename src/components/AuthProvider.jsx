@@ -17,7 +17,10 @@ export const AuthProvider = (props) => {
           const token = window.localStorage.getItem("token");
           if (token) {
             try {
-              const response = await fetch(`${import.meta.env.VITE_API_URL}/users/:id`, {
+              const decodedToken = JSON.parse(atob(token.split('.')[1]));
+              const userId = decodedToken.user_id;
+              
+              const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
                 headers: {
                   Authorization: `Token ${token}`,
                 },
