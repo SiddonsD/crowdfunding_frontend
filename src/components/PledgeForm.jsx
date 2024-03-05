@@ -25,10 +25,10 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     const amount = parseFloat(pledgeData.amount);
     if (auth.token && !isNaN(amount) && amount > 1) {
       try {
-        // const userName = auth.user.username;
-        const response = await postPledge(pledgeData, projectId, auth.token, supporter);
+        const supporterId = auth.user.id
+        const response = await postPledge({...pledgeData, supporter: supporterId}, projectId, auth.token );
         onPledgeSuccess(response);
-        setPledgeData({ amount: '', comment: '', anonymous: false });
+        setPledgeData({ amount: '', comment: '', anonymous: false, supporter: supporterId });
       } catch (error) {
         console.error('Pledge submission failed:', error);
       }
