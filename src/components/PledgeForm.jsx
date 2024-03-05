@@ -27,7 +27,8 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
 
     if (!auth.token || !auth.user) {
       console.error('User is not authenticated.');
-      window.location.href="/login";
+      setErrorMessage('You must be logged in to submit a pledge.')
+      // window.location.href="/login";
       return;
     }
 
