@@ -12,6 +12,13 @@ export const AuthProvider = (props) => {
         user: JSON.parse(window.localStorage.getItem("user")),
     });
 
+    return (
+        <AuthContext.Provider value={{ auth, setAuth }}>
+            {props.children}
+        </AuthContext.Provider>
+    );
+};
+
   //   useEffect(() => {
   //       const fetchUserDetails = async () => {
   //         const token = window.localStorage.getItem("token");
@@ -49,9 +56,3 @@ export const AuthProvider = (props) => {
   //       fetchUserDetails();
   // }, []);
 
-    return (
-        <AuthContext.Provider value={{ auth, setAuth }}>
-            {props.children}
-        </AuthContext.Provider>
-    );
-};
