@@ -4,7 +4,7 @@ async function postPledge(pledgeData, projectId, token) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Token ${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
+        "Authorization": `${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
       },
       body: JSON.stringify({
         ...pledgeData,
