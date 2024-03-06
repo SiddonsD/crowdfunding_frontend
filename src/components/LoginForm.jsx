@@ -26,12 +26,8 @@ function LoginForm() {
         event.preventDefault();
         if (credentials.username && credentials.password) {
             try {
-                const response = await postLogin(
-                credentials.username,
-                credentials.password,
-                );
+                await postLogin(credentials.username, credentials.password);
                 window.localStorage.setItem("token", response.token);
-                setAuth((prevAuth) => ({...prevAuth, token: response.token})); // update auth state
                 navigate("/"); // navigate home
             } catch (err) {
                 window.alert(err.message);
