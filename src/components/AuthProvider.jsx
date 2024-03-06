@@ -9,7 +9,9 @@ export const AuthProvider = (props) => {
     const [auth, setAuth] = useState({
         // initialse the context with token form local storage, this way if user refereshes the page, will still have token in memory
         token: window.localStorage.getItem("token"),
-        user: null,
+        userId: Number(window.localStorage.getItem("user_id")),
+        username: window.localStorage.getItem("username"),
+        // user: null,
     });
 
     useEffect(() => {
