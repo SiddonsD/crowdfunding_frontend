@@ -24,19 +24,18 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const amount = parseFloat(pledgeData.amount);
-
+  
+    // DEBUGGING to be deleted
     console.log('Auth token:', auth.token);
-    console.log('Auth user:', auth.user);  
+    console.log('Auth user:', auth.supporterId);  
 
-    if (!auth.token || !auth.user) {
-    // if (!auth.token ) {
-      console.error('User is not authenticated.');
+    if (!auth.token ) {
       console.error('You must be logged in to submit a pledge.')
-      // window.location.href="/login";
+      window.location.href="/login";
       return;
     }
 
-    if (!isNaN(amount) && amount > 1) {
+    if (!isNaN(amount) && amount > 0) {
       try {
         const supporterId = auth.user.id;
         const response = await postPledge({...pledgeData, supporter: supporterId}, projectId, auth.token );
