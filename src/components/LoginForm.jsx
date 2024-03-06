@@ -15,10 +15,10 @@ function LoginForm() {
     });
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const { id, value } = event.target;
         setCredentials((prevCredentials) => ({
             ...prevCredentials,
-            [name]: value,
+            [id]: value,
         }));
     };
 
@@ -31,7 +31,7 @@ function LoginForm() {
                 credentials.password,
                 );
                 window.localStorage.setItem("token", response.token);
-                setAuth((prevAuth) => ({...prevAuth, token: response.token})); // update auth state
+                // setAuth((prevAuth) => ({...prevAuth, token: response.token})); // update auth state
                 navigate("/"); // navigate home
             } catch (err) {
                 window.alert(err.message);
@@ -55,7 +55,7 @@ function LoginForm() {
                 <label htmlFor="password">Password:</label>
                 <input 
                 type="password" 
-                name="password" 
+                id="password" 
                 placeholder="Password"
                 value={credentials.password}
                 onChange={handleChange}
