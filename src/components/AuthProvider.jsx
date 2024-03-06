@@ -14,42 +14,42 @@ export const AuthProvider = (props) => {
         // user: null,
     });
 
-    useEffect(() => {
-        const fetchUserDetails = async () => {
-          const token = window.localStorage.getItem("token");
-          if (token) {
-            try {
-              const decodedToken = JSON.parse(atob(token.split('.')[1]));
-              const userId = decodedToken.user_id;
+  //   useEffect(() => {
+  //       const fetchUserDetails = async () => {
+  //         const token = window.localStorage.getItem("token");
+  //         if (token) {
+  //           try {
+  //             const decodedToken = JSON.parse(atob(token.split('.')[1]));
+  //             const userId = decodedToken.user_id;
               
-              const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
-                headers: {
-                  Authorization: `Token ${token}`,
-                },
-              });
+  //             const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
+  //               headers: {
+  //                 Authorization: `Token ${token}`,
+  //               },
+  //             });
     
-              if (!response.ok) {
-                // handle errors e.g. invalid token
-                throw new Error('Error fetching user details');
-              }
+  //             if (!response.ok) {
+  //               // handle errors e.g. invalid token
+  //               throw new Error('Error fetching user details');
+  //             }
     
-              const userDetails = await response.json();
-              setAuth((prevAuth) => ({
-                ...prevAuth,
-                token,
-                user: userDetails,
-              }));
-            } catch (error) {
-              console.error("Error fetching user details:", error);
-              // clear token if invalid
-              window.localStorage.removeItem("token");
-              setAuth({ token: null, user: null });
-            }
-          }
-        };
+  //             const userDetails = await response.json();
+  //             setAuth((prevAuth) => ({
+  //               ...prevAuth,
+  //               token,
+  //               user: userDetails,
+  //             }));
+  //           } catch (error) {
+  //             console.error("Error fetching user details:", error);
+  //             // clear token if invalid
+  //             window.localStorage.removeItem("token");
+  //             setAuth({ token: null, user: null });
+  //           }
+  //         }
+  //       };
         
-        fetchUserDetails();
-  }, []);
+  //       fetchUserDetails();
+  // }, []);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>
