@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/use-auth';
 
 const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   const { auth, loading } = useAuth();
-  const [pledgeData, setPledgeData] = useState({
+  const [pledgeData, setPledgeData,] = useState({
     amount: '',
     comment: '',
     anonymous: false,
