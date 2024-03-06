@@ -31,7 +31,7 @@ function LoginForm() {
                 credentials.password,
                 );
                 window.localStorage.setItem("token", response.token);
-                // setAuth((prevAuth) => ({...prevAuth, token: response.token})); // update auth state
+                setAuth((prevAuth) => ({...prevAuth, token: response.token})); // update auth state
                 navigate("/"); // navigate home
             } catch (err) {
                 window.alert(err.message);
