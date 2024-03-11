@@ -29,20 +29,21 @@ function ProjectForm() {
                     goal: parseInt(projectData.goal, 10),
                 };
 
-                if (!formattedData.start_date) {
-                    const now = new Date();
-                    formattedData.start_date = now.toISOString();
-                    formattedData.end_date = new Date(now.setDate(now.getDate() + 90)).toISOString();
-                } else {
-                    const startDate = new Date (formattedData.start_date);
-                    formattedData.end_date = new Date(startDate.setDate(setDate.getDate() + 90)).toISOString();
-                }
-
-                const startDate = new Date(formattedData.start_date);
                 const now = new Date();
-                if (startDate < now || startDate > new Date(now.setDate(now.getDate() + 45))) {
-                    console.error('Start date cannot be more than 45 days from now.');
-                    return;
+                if (!formattedData.start_date) {
+                    formattedData.start_date = now.toISOString();
+                    let endDate = new Date(now);
+                    endDate.setDate(endDate.getDate() + 90);
+                    formattedData.end_date = endDate.toISOString();
+                } else {
+                    let startDate = new Date (formattedData.start_date);
+                    if (startDate < now || startDate > new Date(now.setDate(now.getDate() + 45))) {
+                        console.error('Start date cannot be more than 45 days from now.');
+                        return;
+                }
+                let endDate = new Date(startDate);
+                endDate.setDate(endDate.getDate() + 90);
+                formattedData.end_date = endDate.toISOString();
                 }
                 
                 const endDate = new Date(formattedData.end_date);
