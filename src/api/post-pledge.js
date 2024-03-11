@@ -8,6 +8,8 @@ async function postPledge(pledgeData, projectId, token, supporter) {
     });
 
     console.log('Request Body:', requestBody);
+   
+    console.log('Auth object:', auth);
     
     const response = await fetch(url, {
       method: "POST",
