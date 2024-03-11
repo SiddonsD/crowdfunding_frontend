@@ -30,13 +30,15 @@ function ProjectForm() {
                 };
 
                 const now = new Date();
+                let startDate;
                 if (!formattedData.start_date) {
                     formattedData.start_date = now.toISOString();
+                    startDate = now;
                     let endDate = new Date(now);
                     endDate.setDate(endDate.getDate() + 90);
                     formattedData.end_date = endDate.toISOString();
                 } else {
-                    let startDate = new Date (formattedData.start_date);
+                    startDate = new Date (formattedData.start_date);
                     if (startDate < now || startDate > new Date(now.setDate(now.getDate() + 45))) {
                         console.error('Start date cannot be more than 45 days from now.');
                         return;
