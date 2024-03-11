@@ -39,10 +39,10 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     }
     
     const amount = parseFloat(pledgeData.amount);
-    const supporterId = auth.user_id;
+    const supporter = auth.user_id;
   
     // DEBUGGING to be deleted
-  console.log(supporterId)
+  console.log(supporter)
 
     if (!auth.token ) {
       console.error('You must be logged in to submit a pledge.')
@@ -52,7 +52,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
 
     if (!isNaN(amount) && amount > 0) {
       try {
-        const response = await postPledge(pledgeData, projectId, auth.token, supporterId );
+        const response = await postPledge(pledgeData, projectId, auth.token, supporter);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
         setIsSubmitting(false)
