@@ -24,11 +24,18 @@ function ProjectForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log('Current project data before submit:', projectData);
             try {
                 const formattedData = {
                     ...projectData,
                     goal: parseInt(projectData.goal, 10),
                 };
+
+                if (projectData.end_date) {
+                    formattedData.end_date = new Date(projectData.end_date).toISOString();
+                }
+        
+                console.log('Formatted data being sent:', formattedData);
 
                 const response = await createProject(formattedData, auth.token);
                 console.log('Project created:', response);
