@@ -29,10 +29,30 @@ function ProjectForm() {
                     goal: parseInt(projectData.goal, 10),
                 };
 
-                if (!formattedData.end_date) {
-                    delete formattedData.end_date;
+                if (!formattedData.start_date) {
+                    const now = new Date();
+                    formattedData.start_date = now.toISOString();
+                    formattedData.end_date = new Date(now.setDate(now.getDate() + 90)).toISOString();
+                } else {
+                    const startDate = new Date (formattedData.start_date);
+                    formattedData.end_date = new Date(startDate.setDate(setDate.getDate() + 90)).toISOString();
                 }
 
+                const startDate = new Date(formattedData.start_date);
+                const now = new Date();
+                if (startDate < now || startDate > new Date(now.setDate(now.getDate() + 45))) {
+                    console.error('Start date cannot be more than 45 days from now.');
+                    return;
+                }
+                
+                const endDate = new Date(formattedData.end_date);
+                if (endDate <= now) {
+                    console.error('End date must be in the future.');
+                    return;
+                }
+                if (endDate > new Date (startDate.setDate(startDate.getDate() + 90))) {
+                    console.error('End date must be within 90 days from start date.')
+                }
                 const response = await createProject(formattedData, auth.token);
                 console.log('Project created:', response);
             } catch (error) {
@@ -87,12 +107,12 @@ function ProjectForm() {
                 />
             </div>
             <div>
-                <label htmlFor="date_created">Date Created:</label>
+                <label htmlFor="start_date">Start Date:</label>
                 <input
                 type="date"
-                id="date_created"
-                name="date_created"
-                checked={projectData.date_created}
+                id="start_date"
+                name="start_date"
+                checked={projectData.start_date}
                 onChange={handleChange}
                 />
             </div>
