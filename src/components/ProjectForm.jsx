@@ -28,9 +28,13 @@ function ProjectForm() {
                     ...projectData,
                     goal: parseInt(projectData.goal, 10),
                 };
+
+                if (!formattedData.end_date) {
+                    delete formattedData.end_date;
+                }
+
                 const response = await createProject(formattedData, auth.token);
                 console.log('Project created:', response);
-                // setAuth((prevAuth) => ({...prevAuth, token: newToken}));
             } catch (error) {
                 console.error('Failed to create project:', error); 
             }
@@ -97,7 +101,7 @@ function ProjectForm() {
                 <input
                 type="date"
                 id="end_date"
-                name="date_created"
+                name="end_date"
                 checked={projectData.end_date}
                 onChange={handleChange}
                 />
