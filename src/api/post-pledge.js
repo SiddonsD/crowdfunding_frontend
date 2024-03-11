@@ -1,16 +1,16 @@
-async function postPledge(pledgeData, projectId, token, supporter) {
+async function postPledge(pledgeData, projectId, token, supporterId) {
     const url = `${import.meta.env.VITE_API_URL}/pledges/`;
     
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Token${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
+        "Authorization": `Token ${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
       },
       body: JSON.stringify({
         ...pledgeData,
         project: projectId,
-        supporter: user_id,
+        supporter: supporterId,
       }),
     });
   

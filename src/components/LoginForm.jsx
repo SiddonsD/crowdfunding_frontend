@@ -32,6 +32,7 @@ function LoginForm() {
                 );
                 window.localStorage.setItem("token", response.token);
                 window.localStorage.setItem("user_id", response.user_id);
+                window.localStorage.setItem("username", response.username);
                 setAuth((prevAuth) => ({
                     ...prevAuth, 
                     token: response.token
