@@ -113,7 +113,7 @@ function ProjectForm() {
                 type="date"
                 id="start_date"
                 name="start_date"
-                checked={projectData.start_date}
+                value={projectData.start_date}
                 onChange={handleChange}
                 />
             </div>
@@ -123,7 +123,7 @@ function ProjectForm() {
                 type="date"
                 id="end_date"
                 name="end_date"
-                checked={projectData.end_date}
+                value={projectData.end_date}
                 onChange={handleChange}
                 />
             </div>
