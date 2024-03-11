@@ -11,7 +11,6 @@ async function postPledge(pledgeData, projectId, token, supporter) {
       supporter: supporter,
     });
 
-    console.log('Supporter ID:', supporter);
     console.log('Request Body:', requestBody);
     
     const response = await fetch(url, {
@@ -20,6 +19,7 @@ async function postPledge(pledgeData, projectId, token, supporter) {
         "Content-Type": "application/json",
         "Authorization": `Token ${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
       },
+      body : requestBody
     });
  
     if (!response.ok) {
