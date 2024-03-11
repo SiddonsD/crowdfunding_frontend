@@ -1,4 +1,4 @@
-async function postPledge(pledgeData, projectId, token, supporterId) {
+async function postPledge(pledgeData, projectId, token, supporter) {
     const url = `${import.meta.env.VITE_API_URL}/pledges/`;
     
     const response = await fetch(url, {
@@ -10,7 +10,7 @@ async function postPledge(pledgeData, projectId, token, supporterId) {
       body: JSON.stringify({
         ...pledgeData,
         project: projectId,
-        supporter: supporterId,
+        supporter: supporter,
       }),
     });
   
