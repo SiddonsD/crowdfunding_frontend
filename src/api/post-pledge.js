@@ -1,19 +1,22 @@
 async function postPledge(pledgeData, projectId, token, supporter) {
     const url = `${import.meta.env.VITE_API_URL}/pledges/`;
     
+    const requestBody = JSON.stringify({
+      ...pledgeData,
+      project: projectId,
+      supporter: supporter,
+    });
+
+    console.log('Request Body:', requestBody);
+    
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
       },
-      body: JSON.stringify({
-        ...pledgeData,
-        project: projectId,
-        supporter: supporter,
-      }),
     });
-  
+ 
     if (!response.ok) {
       const fallbackError = "Error trying to submit pledge";
       const data = await response.json().catch(() => {
