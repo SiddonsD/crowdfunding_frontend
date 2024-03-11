@@ -11,7 +11,7 @@ async function postPledge(pledgeData, projectId, token, supporter) {
       supporter: supporter,
     });
 
-    console.log(supporter)
+    console.log('Supporter ID:', supporter);
     console.log('Request Body:', requestBody);
     
     const response = await fetch(url, {

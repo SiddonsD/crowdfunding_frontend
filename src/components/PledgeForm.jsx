@@ -8,7 +8,6 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     amount: '',
     comment: '',
     anonymous: false,
-    supporter: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -28,43 +27,56 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   };
   
   const handleSubmit = async (event) => {
-    // prevents form submission of auth data is loading
-    if (loading){
-      setIsSubmitting(true);
-      return;
-    }
-
+    // prevents form submission while auth data is loading
     if (event) {
       event.preventDefault();
     }
-    
-    const amount = parseFloat(pledgeData.amount);
-    // gets user id and auth token from local
-    const supporter = localStorage.getItem('user_id');
-    const token = localStorage.getItem('auth_token');
 
-    // DEBUGGING to be deleted
-  console.log('Supporter ID:', supporter);
-  console.log('Auth Token:', token);
-  
-    if (!auth.token ) {
-      console.error('You must be logged in to submit a pledge.')
-      window.location.href="/login";
+    if (loading){
       return;
     }
 
-    if (!isNaN(amount) && amount > 0) {
-      try {
-        const response = await postPledge(pledgeData, projectId, auth.token, supporter);
+    setIsSubmitting(true);
+
+    const supporter = auth.user_id; // Get the user_id from the auth context
+    const token = auth.token; 
+
+    // DEBUGGING to be deleted
+    console.log('Supporter ID:', supporter);
+    console.log('Auth Token:', token);    
+   
+    // gets user id and auth token from local
+    // const supporter = localStorage.getItem('user_id');
+    // const token = localStorage.getItem('auth_token');
+
+    if (!token ) {
+      console.error('You must be logged in to submit a pledge.')
+      window.location.href="/login";
+      setIsSubmitting(false);
+      return;
+    }
+
+    const amount = parseFloat(pledgeData.amount);
+    if (isNaN(amount) || amount <= 0) {
+        console.error('Invalid amount', pledgeData.amount);
+        return;
+      }
+
+      try{
+        const response = await postPledge({
+          ...pledgeData, 
+          project: projectId, 
+          supporter: supporter,
+        }, token);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
-        setIsSubmitting(false)
+      
       } catch (error) {
         console.error('Pledge submission failed:', error);
+      
+      } finally {
+        setIsSubmitting(false);
       }
-    } else {
-      console.error('Invalid amount', pledgeData.amount);
-    }
   };
 
   return (
@@ -77,7 +89,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
         placeholder="Pledge amount"
         min="1"
         required
-        disabled={loading}
+        disabled={loading || isSubmitting}
       />
       <input
         type="text"
@@ -85,7 +97,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
         value={pledgeData.comment}
         onChange={handleChange}
         placeholder="Add a comment"
-        disabled={loading}
+        disabled={loading || isSubmitting}
       />
       <label>
         <input
@@ -93,7 +105,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
           name="anonymous"
           checked={pledgeData.anonymous}
           onChange={handleChange}
-          disabled={loading}
+          disabled={loading || isSubmitting}
         />
         Pledge anonymously
       </label>
