@@ -30,16 +30,39 @@ function ProjectForm() {
                 };
 
                 const now = new Date();
+                const isoString = now.toISOString();
                 let startDate = formattedData.start_date ? new Date(formattedData.start_date) : now;
                 let endDate = formattedData.end_date ? new Date(formattedData.end_date) : new Date(startDate);
 
                 if (!formattedData.start_date) {
                     formattedData.start_date = now.toISOString();
                 }
+
+                const getServerDate = (date) => {
+                    // Get the timezone offset from UTC in minutes
+                    const tzOffset = date.getTimezoneOffset() * 60000; // convert offset to milliseconds
+                    // Adjust the date to get the UTC time
+                    const adjustedDate = new Date(date.getTime() - tzOffset);
+                    // Convert to ISO string without timezone information (effectively in server's timezone)
+                    return adjustedDate.toISOString().slice(0, -1);
+                };
+
+                const addDays = (date, days) => {
+                    const result = new Date(date);
+                    result.setDate(result.getDate() + days);
+                    return result;
+                  };
+                  
+                // If start_date is not provided, set it to 1 day from now
+                if (!formattedData.start_date) {
+                    const futureStartDate = addDays(new Date(), 1); 
+                    formattedData.start_date = getServerDate(futureStartDate);
+                  }
                 
                 if (!formattedData.end_date) {
-                    endDate.setDate(startDate.getDate() + 90);
-                    formattedData.start_date = now.toISOString();
+                    const startDate = new Date(formattedData.start_date);
+                    const futureEndDate = addDays(startDate, 90); // 90 days from start_date
+                    formattedData.end_date = getServerDate(futureEndDate);
                 }
 
                 if (endDate > new Date (startDate.getTime() + (90 * 24 * 60 * 60 * 1000))) {
