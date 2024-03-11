@@ -9,6 +9,7 @@ function ProjectForm() {
         description: '',
         goal: 0,
         image: '',
+        end_date:'',
         is_open: true,
     });
 
@@ -88,6 +89,16 @@ function ProjectForm() {
                 id="date_created"
                 name="date_created"
                 checked={projectData.date_created}
+                onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label htmlFor="end_date">End Date:</label>
+                <input
+                type="date"
+                id="end_date"
+                name="date_created"
+                checked={projectData.end_date}
                 onChange={handleChange}
                 />
             </div>
