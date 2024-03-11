@@ -35,16 +35,21 @@ function ProjectForm() {
                     return result;
                 };
         
-                // If start_date is not provided, set it to the current date
-                if (!formattedData.start_date) {
-                    formattedData.start_date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+                // Get the current date in UTC
+                const now = new Date(new Date().toUTCString());
+        
+                // If start_date is not provided or is in the past, set it to the current date
+                let startDate = new Date(formattedData.start_date);
+                if (!formattedData.start_date || startDate < now) {
+                    startDate = now;
+                    formattedData.start_date = startDate.toISOString().split('T')[0]; // YYYY-MM-DD format
                 }
         
-                // Calculate end_date to be 90 days from start_date
-                if (!formattedData.end_date) {
-                    const startDate = new Date(formattedData.start_date);
-                    const futureEndDate = addDays(startDate, 90); // 90 days from start_date
-                    formattedData.end_date = futureEndDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+                // Calculate end_date to be 90 days from the current date
+                let endDate = new Date(formattedData.end_date);
+                if (!formattedData.end_date || endDate > addDays(now, 90)) {
+                    endDate = addDays(now, 90); // 90 days from now
+                    formattedData.end_date = endDate.toISOString().split('T')[0]; // YYYY-MM-DD format
                 }
 
                 const response = await createProject(formattedData, auth.token);
