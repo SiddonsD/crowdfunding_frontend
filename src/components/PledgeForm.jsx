@@ -39,11 +39,14 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     }
     
     const amount = parseFloat(pledgeData.amount);
-    const supporter = auth.user_id;
-  
-    // DEBUGGING to be deleted
-  console.log(supporter)
+    // gets user id and auth token from local
+    const supporter = localStorage.getItem('user_id');
+    const token = localStorage.getItem('auth_token');
 
+    // DEBUGGING to be deleted
+  console.log('Supporter ID:', supporter);
+  console.log('Auth Token:', token);
+  
     if (!auth.token ) {
       console.error('You must be logged in to submit a pledge.')
       window.location.href="/login";
