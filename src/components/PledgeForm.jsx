@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/use-auth';
 
 const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   const { auth, loading } = useAuth();
-  const [pledgeData, setPledgeData,] = useState({
+  const [pledgeData, setPledgeData] = useState({
     amount: '',
     comment: '',
     anonymous: false,
@@ -44,7 +44,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   
     // DEBUGGING to be deleted
     console.log('Auth token:', auth.token);
-    console.log('Auth user:', auth.id);  
+    console.log('Auth user:', auth.user_id);  
 
     if (!auth.token ) {
       console.error('You must be logged in to submit a pledge.')
@@ -52,11 +52,11 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
       return;
     }
 
-    const supporterId = auth.id;
+    const supporterId = auth.user_id;
 
     if (!isNaN(amount) && amount > 0) {
       try {
-        const response = await postPledge(pledgeData, auth.id, projectId, auth.token );
+        const response = await postPledge({...pledgeData, user_id}, projectId, auth.token );
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
         setIsSubmitting(false)
