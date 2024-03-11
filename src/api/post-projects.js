@@ -1,8 +1,4 @@
 async function createProject(projectData, token) {
-
-    if (projectData.end_date && projectData.end_date instanceof Date) {
-        projectData.end_date = projectData.end_date.toISOString(); // if user sets end date, convert to ISO format
-    }
     const url = `${import.meta.env.VITE_API_URL}/projects/create`;
     const response = await fetch(url, {
         method: "POST",

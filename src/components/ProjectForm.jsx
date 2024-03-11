@@ -29,29 +29,6 @@ function ProjectForm() {
                     goal: parseInt(projectData.goal, 10),
                 };
 
-                const addDays = (date, days) => {
-                    const result = new Date(date);
-                    result.setDate(result.getDate() + days);
-                    return result;
-                };
-        
-                // Get the current date in UTC
-                const now = new Date(new Date().toUTCString());
-        
-                // If start_date is not provided or is in the past, set it to the current date
-                let startDate = new Date(formattedData.start_date);
-                if (!formattedData.start_date || startDate < now) {
-                    startDate = now;
-                    formattedData.start_date = startDate.toISOString().split('T')[0]; // YYYY-MM-DD format
-                }
-        
-                // Calculate end_date to be 90 days from the current date
-                let endDate = new Date(formattedData.end_date);
-                if (!formattedData.end_date || endDate > addDays(now, 90)) {
-                    endDate = addDays(now, 90); // 90 days from now
-                    formattedData.end_date = endDate.toISOString().split('T')[0]; // YYYY-MM-DD format
-                }
-
                 const response = await createProject(formattedData, auth.token);
                 console.log('Project created:', response);
             } catch (error) {
