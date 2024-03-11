@@ -9,6 +9,7 @@ function ProjectForm() {
         description: '',
         goal: 0,
         image: '',
+        start_date: '',
         end_date:'',
         is_open: true,
     });
