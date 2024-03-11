@@ -8,6 +8,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     amount: '',
     comment: '',
     anonymous: false,
+    supporter: supporterId,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -25,9 +26,6 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
       [name]: name === 'anonymous' ? checked : value,
     });
   };
-
-  // DEBUGGING to be deleted
-  console.log(auth)
   
   const handleSubmit = async (event) => {
     // prevents form submission of auth data is loading
@@ -41,18 +39,16 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     }
     
     const amount = parseFloat(pledgeData.amount);
+    const supporterId = auth.user_id;
   
     // DEBUGGING to be deleted
-    console.log('Auth token:', auth.token);
-    console.log('Auth user:', auth.user_id);  
+  console.log(supporterId)
 
     if (!auth.token ) {
       console.error('You must be logged in to submit a pledge.')
       window.location.href="/login";
       return;
     }
-
-    const supporterId = auth.user_id;
 
     if (!isNaN(amount) && amount > 0) {
       try {
