@@ -8,7 +8,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     amount: '',
     comment: '',
     anonymous: false,
-    supporter: supporterId,
+    supporter: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
