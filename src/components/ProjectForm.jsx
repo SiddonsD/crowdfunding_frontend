@@ -30,32 +30,23 @@ function ProjectForm() {
                 };
 
                 const now = new Date();
-                let startDate;
+                let startDate = formattedData.start_date ? new Date(formattedData.start_date) : now;
+                let endDate = formattedData.end_date ? new Date(formattedData.end_date) : new Date(startDate);
+
                 if (!formattedData.start_date) {
                     formattedData.start_date = now.toISOString();
-                    startDate = now;
-                    let endDate = new Date(now);
-                    endDate.setDate(endDate.getDate() + 90);
-                    formattedData.end_date = endDate.toISOString();
-                } else {
-                    startDate = new Date (formattedData.start_date);
-                    if (startDate < now || startDate > new Date(now.setDate(now.getDate() + 45))) {
-                        console.error('Start date cannot be more than 45 days from now.');
-                        return;
-                }
-                let endDate = new Date(startDate);
-                endDate.setDate(endDate.getDate() + 90);
-                formattedData.end_date = endDate.toISOString();
                 }
                 
-                const endDate = new Date(formattedData.end_date);
-                if (endDate <= now) {
-                    console.error('End date must be in the future.');
+                if (!formattedData.end_date) {
+                    endDate.setDate(startDate.getDate() + 90);
+                    formattedData.start_date = now.toISOString();
+                }
+
+                if (endDate > new Date (startDate.getTime() + (90 * 24 * 60 * 60 * 1000))) {
+                    console.error('End date must be within 90 days from start date.');
                     return;
                 }
-                if (endDate > new Date (startDate.setDate(startDate.getDate() + 90))) {
-                    console.error('End date must be within 90 days from start date.')
-                }
+
                 const response = await createProject(formattedData, auth.token);
                 console.log('Project created:', response);
             } catch (error) {
