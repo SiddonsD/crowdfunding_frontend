@@ -8,6 +8,8 @@ function NavBar() {
     const handleLogout = (event) => {
         event.preventDefault(); // prvents default link navigation
         window.localStorage.removeItem("token"); // removes auth token when user logs out
+        // window.localStorage.removeItem("user_id"); 
+        window.localStorage.removeItem("username"); 
         setAuth((prevAuth) => ({...prevAuth, token: null })); // clears state when user logs out
         navigate('/'); // navigates to home page post logout
     };
