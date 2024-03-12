@@ -13,7 +13,7 @@ async function postPledge(pledgeData, projectId, token, supporterId) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
+        "Authorization": `Token ${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
       },
       body : requestBody
     });
