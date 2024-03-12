@@ -47,7 +47,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
 
     // DEBUGGING to be deleted
     console.log('handleSubmit called');
-    console.log('Supporter ID:', supporter);
+    console.log('Supporter ID:', supporterId);
     console.log('Token:', token);
     console.log('Project', projectId);
 

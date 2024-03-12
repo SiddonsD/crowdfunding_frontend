@@ -1,4 +1,4 @@
-async function postPledge(pledgeData, projectId, token, supporterId) {
+async function postPledge(pledgeData, token) {
     const url = `${import.meta.env.VITE_API_URL}/pledges/`;
 
     const requestBody = JSON.stringify({
