@@ -43,12 +43,11 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
 
        // gets user id and auth token from local
     const supporter = localStorage.getItem('user_id');
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('token');
 
         // DEBUGGING to be deleted
         console.log('Supporter ID:', supporter);
-        console.log('Auth Token:', token);
-        console.log('Auth object:', auth);
+        console.log('Token:', token);
         console.log('Project', projectId);
 
     if (!token) {
