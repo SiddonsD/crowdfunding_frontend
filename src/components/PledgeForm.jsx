@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import postPledge from '../api/post-pledge';
 import { useAuth } from '../hooks/use-auth';
 
-
-
-const PledgeForm = ({ projectId, onPledgeSuccess, user_id }) => {
+const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   const { auth, loading } = useAuth();
   const [pledgeData, setPledgeData] = useState({
     amount: '',
     comment: '',
     anonymous: false,
-    supporter: user_id,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -39,9 +36,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess, user_id }) => {
       return;
     }
 
-    setIsSubmitting(true);
-
- 
+    setIsSubmitting(true); 
 
     // gets user id and auth token from local
     const supporter = localStorage.getItem('user_id');
@@ -50,9 +45,9 @@ const PledgeForm = ({ projectId, onPledgeSuccess, user_id }) => {
     // DEBUGGING to be deleted
     console.log('Supporter ID:', supporter);
     console.log('Token:', token);
-        console.log('Project', projectId);
+    console.log('Project', projectId);
 
-    if (!token || !supporterId) {
+    if (!token || !supporter) {
       console.error('You must be logged in to submit a pledge.')
       window.location.href="/login";
       setIsSubmitting(false);
@@ -72,7 +67,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess, user_id }) => {
           comment: pledgeData.comment,
           anonymous: pledgeData.anonymous,
           project: projectId, 
-          supporter: supporterId,
+          supporter: supporter,
         }, token);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
