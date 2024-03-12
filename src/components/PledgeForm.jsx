@@ -33,9 +33,11 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
       event.preventDefault();
     }
 
-    if (loading){
-      return;
-    }
+    // check if we are already submitting, if so, return early
+    if (isSubmitting) {
+    console.log('Already submitting, please wait...');
+    return;
+  }
 
     setIsSubmitting(true); 
 
@@ -44,6 +46,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     const token = localStorage.getItem('token');
 
     // DEBUGGING to be deleted
+    console.log('handleSubmit called');
     console.log('Supporter ID:', supporter);
     console.log('Token:', token);
     console.log('Project', projectId);
@@ -67,7 +70,9 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
           amount: pledgeData.amount,
           comment: pledgeData.comment,
           anonymous: pledgeData.anonymous,
-        }, projectId, token, supporter);
+          project: projectId,
+          supporter: supporter,
+        }, token);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
       
