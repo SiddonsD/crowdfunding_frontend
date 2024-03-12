@@ -27,6 +27,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   };
   
   const handleSubmit = async (event) => {
+    console.log('handleSubmit called'); //testing duplicate pledges
     // prevents form submission while auth data is loading
     if (event) {
       event.preventDefault();
