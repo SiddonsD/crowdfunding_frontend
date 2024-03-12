@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import postPledge from '../api/post-pledge';
 import { useAuth } from '../hooks/use-auth';
 
-const PledgeForm = ({ projectId, onPledgeSuccess }) => {
+const supporter = localStorage.getItem('user_id');
+
+const PledgeForm = ({ projectId, onPledgeSuccess, user_id }) => {
   const { auth, loading } = useAuth();
   const [pledgeData, setPledgeData] = useState({
     amount: '',
     comment: '',
     anonymous: false,
+    supporter: user_id,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -42,8 +45,8 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     // const token = auth.token; 
 
        // gets user id and auth token from local
-    const supporter = localStorage.getItem('user_id');
-    const token = localStorage.getItem('token');
+
+    // const token = localStorage.getItem('token');
 
         // DEBUGGING to be deleted
         console.log('Supporter ID:', supporter);
@@ -67,7 +70,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
         const response = await postPledge({
           ...pledgeData, 
           project: projectId, 
-          supporter: supporterId,
+          supporter: supporterId(user_id),
         }, token);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });

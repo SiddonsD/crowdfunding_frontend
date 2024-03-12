@@ -1,6 +1,6 @@
 async function postPledge(pledgeData, projectId, token, supporter) {
     const url = `${import.meta.env.VITE_API_URL}/pledges/`;
-    
+    const supporter = localStorage.getItem('user_id');
     const requestBody = JSON.stringify({
       ...pledgeData,
       project: projectId,
