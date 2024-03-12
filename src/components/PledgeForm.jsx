@@ -42,7 +42,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     setIsSubmitting(true); 
 
     // gets user id and auth token from local
-    const supporter = localStorage.getItem('user_id');
+    const supporterId = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
     // DEBUGGING to be deleted
@@ -51,7 +51,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     console.log('Token:', token);
     console.log('Project', projectId);
 
-    if (!token || !supporter) {
+    if (!token || !supporterId) {
       console.error('You must be logged in to submit a pledge.')
       window.location.href="/login";
       setIsSubmitting(false);
@@ -71,7 +71,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
           comment: pledgeData.comment,
           anonymous: pledgeData.anonymous,
           project: projectId,
-          supporter: supporter,
+          supporter: supporterId,
         }, token);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
