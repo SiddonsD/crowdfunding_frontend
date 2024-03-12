@@ -66,9 +66,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
           amount: pledgeData.amount,
           comment: pledgeData.comment,
           anonymous: pledgeData.anonymous,
-          project: projectId, 
-          supporter: supporter,
-        }, token);
+        }, projectId, token, supporter);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
       
