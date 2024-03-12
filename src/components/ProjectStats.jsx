@@ -20,6 +20,7 @@ const ProjectStats = ({ project }) => {
     return (
         <>
         <h3>Goal: {formatCurrency(project.goal)}</h3>
+        <h3>Total Supporters: {formatCurrency(totalSupporters)}</h3>
         <h3>Total Pledged: {formatCurrency(totalPledged)}</h3>
         <h3>Days Left: {daysLeft > 0 ? daysLeft: 'Campaign ended.'}</h3>
         <div className="progress-bar-container">
