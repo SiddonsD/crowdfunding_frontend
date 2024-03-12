@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import postPledge from '../api/post-pledge';
 import { useAuth } from '../hooks/use-auth';
 
-const supporter = localStorage.getItem('user_id');
+
 
 const PledgeForm = ({ projectId, onPledgeSuccess, user_id }) => {
   const { auth, loading } = useAuth();
@@ -41,19 +41,18 @@ const PledgeForm = ({ projectId, onPledgeSuccess, user_id }) => {
 
     setIsSubmitting(true);
 
-    // const supporter = auth.user_id; // Get the user_id from the auth context
-    // const token = auth.token; 
+ 
 
-       // gets user id and auth token from local
+    // gets user id and auth token from local
+    const supporter = localStorage.getItem('user_id');
+    const token = localStorage.getItem('token');
 
-    // const token = localStorage.getItem('token');
-
-        // DEBUGGING to be deleted
-        console.log('Supporter ID:', supporter);
-        console.log('Token:', token);
+    // DEBUGGING to be deleted
+    console.log('Supporter ID:', supporter);
+    console.log('Token:', token);
         console.log('Project', projectId);
 
-    if (!token) {
+    if (!token || !supporterId) {
       console.error('You must be logged in to submit a pledge.')
       window.location.href="/login";
       setIsSubmitting(false);
@@ -63,14 +62,17 @@ const PledgeForm = ({ projectId, onPledgeSuccess, user_id }) => {
     const amount = parseFloat(pledgeData.amount);
     if (isNaN(amount) || amount <= 0) {
         console.error('Invalid amount', pledgeData.amount);
+        setIsSubmitting(false)
         return;
       }
 
       try{
         const response = await postPledge({
-          ...pledgeData, 
+          amount: pledgeData.amount,
+          comment: pledgeData.comment,
+          anonymous: pledgeData.anonymous,
           project: projectId, 
-          supporter: supporterId(user_id),
+          supporter: supporterId,
         }, token);
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
