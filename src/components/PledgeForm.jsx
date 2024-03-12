@@ -3,7 +3,7 @@ import postPledge from '../api/post-pledge';
 import { useAuth } from '../hooks/use-auth';
 
 const PledgeForm = ({ projectId, onPledgeSuccess }) => {
-  const { auth, loading } = useAuth();
+  const { auth } = useAuth();
   const [pledgeData, setPledgeData] = useState({
     amount: '',
     comment: '',
@@ -11,12 +11,12 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // if user is auth and submission interupted, try submitting pledge again
-  useEffect(() => {
-    if (!loading && isSubmitting) {
-      handleSubmit();
-    }
-  }, [loading, isSubmitting]);
+  // // if user is auth and submission interupted, try submitting pledge again
+  // useEffect(() => {
+  //   if (!loading && isSubmitting) {
+  //     handleSubmit();
+  //   }
+  // }, [loading, isSubmitting]);
 
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
@@ -27,11 +27,8 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
   };
   
   const handleSubmit = async (event) => {
-    console.log('handleSubmit called'); //testing duplicate pledges
-    // prevents form submission while auth data is loading
-    if (event) {
-      event.preventDefault();
-    }
+    event.preventDefault();
+    console.log('handleSubmit called');
 
     // check if we are already submitting, if so, return early
     if (isSubmitting) {
@@ -46,7 +43,6 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
     const token = localStorage.getItem('token');
 
     // DEBUGGING to be deleted
-    console.log('handleSubmit called');
     console.log('Supporter ID:', supporterId);
     console.log('Token:', token);
     console.log('Project', projectId);
@@ -73,6 +69,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
           project: projectId,
           supporter: supporterId,
         }, token);
+
         onPledgeSuccess(response);
         setPledgeData({ amount: '', comment: '', anonymous: false });
       
@@ -94,7 +91,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
         placeholder="Pledge amount"
         min="1"
         required
-        disabled={loading || isSubmitting}
+        disabled={isSubmitting}
       />
       <input
         type="text"
@@ -102,7 +99,7 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
         value={pledgeData.comment}
         onChange={handleChange}
         placeholder="Add a comment"
-        disabled={loading || isSubmitting}
+        disabled={isSubmitting}
       />
       <label>
         <input
@@ -110,12 +107,12 @@ const PledgeForm = ({ projectId, onPledgeSuccess }) => {
           name="anonymous"
           checked={pledgeData.anonymous}
           onChange={handleChange}
-          disabled={loading || isSubmitting}
+          disabled={isSubmitting}
         />
         Pledge anonymously
       </label>
-      <button type="submit" disabled={loading || isSubmitting}>
-        {loading || isSubmitting? 'Submitting...' : 'Pledge'}
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting? 'Submitting...' : 'Pledge'}
         </button>
     </form>
   );

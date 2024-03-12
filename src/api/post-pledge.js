@@ -1,11 +1,7 @@
 async function postPledge(pledgeData, token) {
     const url = `${import.meta.env.VITE_API_URL}/pledges/`;
 
-    const requestBody = JSON.stringify({
-      ...pledgeData,
-      project: projectId,
-      supporter: supporterId,
-    });
+    const requestBody = JSON.stringify(pledgeData);
 
     console.log('Request Body:', requestBody);
 
@@ -15,7 +11,7 @@ async function postPledge(pledgeData, token) {
         "Content-Type": "application/json",
         "Authorization": `Token ${token}`, // use token for authentication, header must be titled 'authorization' or can lead to CORS errors
       },
-      body : requestBody
+      body: requestBody
     });
  
     if (!response.ok) {
